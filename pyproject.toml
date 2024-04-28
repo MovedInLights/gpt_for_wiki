@@ -1,0 +1,17 @@
+[tool.poetry]
+name = "gpt-for-wiki"
+version = "0.1.0"
+description = "GPT for wikiznak"
+authors = ["movedinlights <alekudryavtsev@gmail.com>"]
+readme = "README.md"
+packages = [{include = "gpt_for_wiki"}]
+
+[tool.poetry.dependencies]
+python = "^3.10"
+openai = "^1.14.0"
+django = "^5.0.4"
+
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
