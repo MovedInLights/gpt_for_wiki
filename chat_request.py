@@ -1,12 +1,10 @@
-from django.http import HttpRequest, HttpResponse
-
 from chat_processor import ChatClient
 
 # Подумать над тем, чтобы 2 чата было, один парсит картинку, другой проверяет
 
 
 def test_chat_with_gpt(request: HttpRequest):
-    tm_name = request.POST.get('clients_tm_name', '')
+    tm_name = request.POST.get('clients_tm_app_name', '')
     registered_tm_to_compare = request.POST.get('tm_to_compare', '')
 
     # registered_tm_to_compare_base_64 = convert_image_to_base64(

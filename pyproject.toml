@@ -9,7 +9,7 @@ packages = [{include = "gpt_for_wiki"}]
 [tool.poetry.dependencies]
 python = "^3.10"
 openai = "^1.14.0"
-django = "^5.0.4"
+flask = "^3.0.3"
 
 
 [build-system]
