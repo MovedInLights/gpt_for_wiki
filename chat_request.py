@@ -3,7 +3,7 @@ from chat_processor import ChatClient
 # Подумать над тем, чтобы 2 чата было, один парсит картинку, другой проверяет
 
 
-def test_chat_with_gpt(request: HttpRequest):
+def test_chat_with_gpt(request):
     tm_name = request.POST.get('clients_tm_app_name', '')
     registered_tm_to_compare = request.POST.get('tm_to_compare', '')
 
@@ -36,7 +36,7 @@ def test_chat_with_gpt(request: HttpRequest):
     # context = {
     #     'tm_name': data_for_chat,
     # }
-    return HttpResponse(result)
+    return {'result': result}
 
 
 # TODO Нужно указать какой знак зарегистрирован, какой из них новый.

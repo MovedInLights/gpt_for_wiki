@@ -10,6 +10,8 @@ packages = [{include = "gpt_for_wiki"}]
 python = "^3.10"
 openai = "^1.14.0"
 flask = "^3.0.3"
+python-dotenv = "^1.0.1"
+pre-commit = "^3.7.0"
 
 
 [build-system]

@@ -1,11 +1,12 @@
 import base64
 import json
 import logging
+from typing import Union, Dict, Any, List
 
 import requests
 
 
-def convert_string_to_json(data_to_convert: str) -> json:
+def convert_string_to_json(data_to_convert: str) -> Union[Dict[str, Any], List[Any]]:
     try:
         data_for_chat = json.loads(data_to_convert)
     except json.JSONDecodeError as e:
