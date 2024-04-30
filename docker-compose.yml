@@ -6,7 +6,7 @@ services:
     volumes:
       - .:/app
     ports:
-      - "146.59.3.224:8000:8000"
+      - "146.59.3.224:5000:8000"
     environment:
       - FLASK_ENV=development
       - FLASK_DEBUG=1
