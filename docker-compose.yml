@@ -6,7 +6,7 @@ services:
     volumes:
       - .:/app
     ports:
-      - "146.59.3.224:5000:8000"
+      - "5000:8000"
     environment:
       - FLASK_ENV=development
       - FLASK_DEBUG=1
@@ -19,4 +19,4 @@ services:
       - POSTGRES_USER=dev_user
       - POSTGRES_PASSWORD=dev_password
     ports:
-      - "146.59.3.224:5432:5432"
+      - "5432:5432"
