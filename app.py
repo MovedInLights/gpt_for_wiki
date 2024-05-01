@@ -24,8 +24,4 @@ def compare_tm_apps():
     return {'result': result}
 
 
-# docker
-# ngnix
-# gunicorn
-# pre-commit
 # cd/ci

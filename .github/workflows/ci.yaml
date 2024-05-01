@@ -1,0 +1,60 @@
+name: CI
+
+on:
+  pull_request:
+    branches:
+      - dev
+      - master
+      - pre_release
+      - 'release/*'
+  push:
+    branches:
+      - dev
+      - master
+      - pre_release
+      - 'release/*'
+
+env:
+  SKIP: mypy
+
+jobs:
+  tests:
+    if: "!contains(github.event.head_commit.message, '[skip ci]') && !contains(github.event.head_commit.message, '[ci skip]')"
+    name: Pytest with coverage
+    runs-on: ubuntu-20.04
+    strategy:
+      fail-fast: true
+      matrix:
+        python-version: ["3.10", "3.11", "3.12"]
+    steps:
+      - uses: actions/checkout@v3
+      - uses: actions/setup-python@v4
+        with:
+          python-version: ${{ matrix.python-version }}
+      - name: Install Poetry
+        run: |
+          pip3 install poetry==1.5.1
+      - name: Check Poetry configuration
+        run: |
+          poetry check
+      - name: Cache the virtualenv
+        uses: actions/cache@v3
+        with:
+          path: .venv
+          key: ${{ runner.os }}-poetry-${{ hashFiles('**/poetry.lock') }}
+          restore-keys: |
+            ${{ runner.os }}-poetry-
+      - name: Install virtual environment
+        run: |
+          make venv_dev
+      - name: Install binary dependencies
+        run: |
+          make install_bindeps
+
+  pre-commit:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+    - uses: actions/checkout@v3
+    - uses: actions/setup-python@v4
+    - uses: pre-commit/action@v3.0.0
