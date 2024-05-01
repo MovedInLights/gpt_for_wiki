@@ -12,7 +12,6 @@ app.config['JSON_AS_ASCII'] = False
 def compare_tm_apps():
     clients_tm_app_name = request.args.get('clients_tm_app_name', None)
     tm_app_to_compare = request.args.get('tm_app_to_compare', None)
-    print(clients_tm_app_name, tm_app_to_compare)
     request_text = COMPARE_REQUEST.format(
         clients_tm_app_name=clients_tm_app_name, tm_app_to_compare=tm_app_to_compare
     )
