@@ -2,16 +2,11 @@ version: '3.8'
 services:
   web:
     build: .
-    command: gunicorn "GTP_for_wiki:create_app()" --bind 0.0.0.0:8000 --workers 3
-    volumes:
-      - .:/app
     ports:
-      - "146.59.3.224:5000:8000"
+      - "5000:8000"
     environment:
       - FLASK_ENV=development
       - FLASK_DEBUG=1
-    depends_on:
-      - db
   db:
     image: postgres
     environment:

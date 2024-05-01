@@ -6,4 +6,4 @@ COPY pyproject.toml poetry.lock ./
 RUN poetry install
 COPY . .
 EXPOSE 8000
-CMD ["flask", "run", "--host=0.0.0.0", "--port=8000"]
+CMD ["gunicorn", "app:create_app", "--bind", "0.0.0.0:8000", "--workers", "3"]
