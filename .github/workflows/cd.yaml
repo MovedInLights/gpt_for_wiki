@@ -55,4 +55,4 @@ jobs:
         with:
           to: ${{ secrets.TELEGRAM_TO }}
           token: ${{ secrets.TELEGRAM_TOKEN }}
-          message: Deployment of ${{ github.workflow }} was successful!
+          message: Deployment of ${{ github.workflow }} in GPT_for_wiki was successful!
