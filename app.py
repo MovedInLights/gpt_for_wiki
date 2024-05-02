@@ -1,5 +1,6 @@
 import os
 
+from dotenv import load_dotenv
 from flask import Flask
 from flask import request
 
@@ -8,6 +9,8 @@ from prompts import COMPARE_PROMPT, COMPARE_REQUEST
 
 app = Flask(__name__)
 app.config['JSON_AS_ASCII'] = False
+
+load_dotenv()
 
 
 @app.route("/compare_tm_apps")
