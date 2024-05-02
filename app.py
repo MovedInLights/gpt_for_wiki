@@ -1,3 +1,5 @@
+import os
+
 from flask import Flask
 from flask import request
 
@@ -10,6 +12,10 @@ app.config['JSON_AS_ASCII'] = False
 
 @app.route("/compare_tm_apps")
 def compare_tm_apps():
+    token = request.args.get('Authorization')
+    if token != os.getenv('API_GPT_TOKEN'):
+        return "Invalid token", 401
+
     clients_tm_app_name = request.args.get('clients_tm_app_name', None)
     tm_app_to_compare = request.args.get('tm_app_to_compare', None)
     request_text = COMPARE_REQUEST.format(
