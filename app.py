@@ -19,9 +19,11 @@ logging.basicConfig(level=logging.DEBUG)
 def compare_tm_apps():
     logging.debug("Application started, logging is configured correctly.")
     token = request.headers.get('Authorization')
+    expected_token = 'Bearer ' + os.getenv('API_GPT_TOKEN')
     logging.info('Received token: %s', token)
     logging.debug('Expected token: %s', 'Bearer ' + os.getenv('API_GPT_TOKEN'))
-    if token != 'Bearer ' + os.getenv('API_GPT_TOKEN'):
+
+    if token != expected_token:
         return "Invalid token", 401
 
     clients_tm_app_name = request.args.get('clients_tm_app_name', None)
