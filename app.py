@@ -12,8 +12,8 @@ app.config['JSON_AS_ASCII'] = False
 
 @app.route("/compare_tm_apps")
 def compare_tm_apps():
-    token = request.args.get('Authorization')
-    if token != os.getenv('API_GPT_TOKEN'):
+    token = request.headers.get('Authorization')
+    if token != 'Bearer ' + os.getenv('API_GPT_TOKEN'):
         return "Invalid token", 401
 
     clients_tm_app_name = request.args.get('clients_tm_app_name', None)
