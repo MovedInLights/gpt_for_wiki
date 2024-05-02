@@ -15,6 +15,21 @@ load_dotenv()
 logging.basicConfig(level=logging.DEBUG)
 
 
+app.logger.setLevel(logging.INFO)
+handler = logging.FileHandler('app.log')
+app.logger.addHandler(handler)
+
+
+@app.route('/')
+def index():
+    app.logger.info('This is an INFO message')
+    app.logger.debug('This is a DEBUG message')
+    app.logger.warning('This is a WARNING message')
+    app.logger.error('This is an ERROR message')
+    app.logger.critical('This is a CRITICAL message')
+    return 'Hello, World!'
+
+
 @app.route("/compare_tm_apps")
 def compare_tm_apps():
     logging.debug("Application started, logging is configured correctly.")
