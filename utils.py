@@ -28,7 +28,7 @@ def convert_image_to_base64(image_url):
         image_format = 'JPEG'
         compressed_image.save(img_byte_arr, format=image_format, quality=75)
         decoded_image = base64.b64encode(img_byte_arr.getvalue()).decode('utf-8')
-        print(decoded_image)
+        logging.info(f'Decoded image: {decoded_image}')
         return decoded_image
     except Exception as e:
         logging.warning(f'Error converting image to base64: {e}')

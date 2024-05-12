@@ -40,12 +40,11 @@ jobs:
           passphrase: ${{ secrets.PASSPHRASE }}
           script: |
             cd gpt_for_wiki
-            git fetch --verbose
-            git pull
-            docker-compose stop
+            git fetch --all
+            git reset --hard origin/main
             docker-compose down
-            docker pull foreverfilthy/gpt_for_wiki:latest
-            docker-compose up -d --build
+            docker-compose pull
+            docker-compose up -d --force-recreate
             docker image prune -a -f
 
   send_message:
