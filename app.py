@@ -7,6 +7,7 @@ from flask import request
 
 from chat_processor import ChatClient
 from prompts import COMPARE_PROMPT, COMPARE_REQUEST
+from utils import convert_image_to_base64
 
 app = Flask(__name__)
 app.config['JSON_AS_ASCII'] = False
@@ -41,6 +42,8 @@ def compare_tm_apps():
 
     clients_tm_app_name = request.args.get('clients_tm_app_name', None)
     tm_app_to_compare = request.args.get('tm_app_to_compare', None)
+    image_link_to_compare = request.args.get('image_link_to_compare', None)
+    convert_image_to_base64(image_link_to_compare)
     request_text = COMPARE_REQUEST.format(
         clients_tm_app_name=clients_tm_app_name, tm_app_to_compare=tm_app_to_compare
     )
@@ -52,4 +55,4 @@ def compare_tm_apps():
     return {'result': result}
 
 
-# cd/ci
+# nginx сделать
