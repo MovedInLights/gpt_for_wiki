@@ -48,4 +48,4 @@ def compare_tm_apps():
     return {'result': result}
 
 
-# nginx сделать
+# nginx сделать тест
