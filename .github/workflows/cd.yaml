@@ -45,7 +45,8 @@ jobs:
             docker-compose stop
             docker-compose down
             docker pull foreverfilthy/gpt_for_wiki:latest
-            docker-compose up -d
+            docker-compose up -d --build
+            docker image prune -a -f
 
   send_message:
     runs-on: ubuntu-latest
