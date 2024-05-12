@@ -40,10 +40,12 @@ jobs:
           passphrase: ${{ secrets.PASSPHRASE }}
           script: |
             cd gpt_for_wiki
+            eval "$(ssh-agent -s)"
+            echo ${{ secrets.PASSPHRASE }} | ssh-add ~/.ssh/id_rsa
             git fetch --all
             git reset --hard origin/main
             docker-compose down
-            docker pull
+            docker pull foreverfilthy/gpt_for_wiki:latest
             docker-compose up -d --force-recreate
             docker image prune -a -f
 
