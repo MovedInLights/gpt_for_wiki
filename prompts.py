@@ -1,26 +1,24 @@
 FINAL_MESSAGE_PROMPT = (
-    'Your trademark "{Trademark1 name}" - '
-    'Registered trademark "{Trademark2 name}" - '
+    'Your trademark "{Trademark1}" - '
+    'Registered trademark "{Trademark2}" - '
     'Similarity percentage: {SimilarityPercentage}%. '
-    'Opposition probability - {Prediction}.'
+    'Opposition probability: {Prediction}.'
 )
+
 
 COMPARE_PROMPT = (
     "As an expert in trademark comparison, "
-    "you need to assess the similarity between two trademarks. "
-    "Based on the provided names, estimate the similarity percentage "
+    "assess the similarity between the following two trademarks. "
+    "Based on their names, estimate the similarity percentage "
     "and the likelihood of opposition. "
-    "Your response should include the names of both trademarks "
-    "followed by the estimated similarity percentage and the likelihood of opposition, "
-    f"formatted as follows: {FINAL_MESSAGE_PROMPT} "
-    "Ensure your reply is concise and presented in Russian. "
-    "Use the phrase 'Your trademark' to denote the user's trademark. "
-    "Use the phrase 'Registered trademark' "
-    "to denote the registered trademark. "
-    "Use the word 'percent' to denote percentage. "
-    "For the likelihood of opposition, "
-    "use one of the following terms based on the similarity percentage: "
-    "'very low', 'low', 'average', 'high', 'very high'."
+    "Format your response as follows: {FINAL_MESSAGE_PROMPT} "
+    "Ensure your reply is concise and in Russian. "
+    "Use 'Your trademark' for the user's trademark, "
+    "'Registered trademark' for the registered trademark, "
+    "'percent' for percentage, and one of the following terms "
+    "for opposition probability: "
+    "'very low', 'low', 'average', 'high', 'very high'. "
+    "Place the names of the trademarks within curly brackets."
 )
 
 COMPARE_REQUEST = (
