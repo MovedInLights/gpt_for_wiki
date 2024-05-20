@@ -6,7 +6,9 @@ COMPARE_PROMPT = (
     "Your response should include the names of both trademarks "
     "followed by the estimated similarity percentage, "
     "formatted as follows: "
-    "'Trademark 1 - Trademark 2 - Similarity Percentage percent'. "
+    "'Ваш товарный знак Trademark 1 "
+    "- зарегистрированный товарный знак Trademark 2 "
+    "- Similarity Percentage percent'. "
     "Ensure your reply is concise and "
     "presented in Russian. Use the word 'процент' to denote percentage."
 )
