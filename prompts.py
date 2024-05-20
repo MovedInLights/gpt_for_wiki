@@ -1,6 +1,6 @@
 FINAL_MESSAGE_PROMPT = (
-    'Your trademark "{Trademark1}" - '
-    'Registered trademark "{Trademark2}" - '
+    'Your trademark "{Trademark1 name}" - '
+    'Registered trademark "{Trademark2 name}" - '
     'Similarity percentage: {SimilarityPercentage}%. '
     'Opposition probability - {Prediction}.'
 )
@@ -24,7 +24,7 @@ COMPARE_PROMPT = (
 )
 
 COMPARE_REQUEST = (
-    'Пожалуйста, сравните следующие товарные знаки:\n'
-    '1. Моё обозначение: "{clients_tm_app_name}"\n'
-    '2. Зарегистрированный товарный знак: "{tm_app_to_compare}"\n'
+    'Please, compare the following trademarks:\n'
+    '1. User trademark: "{clients_tm_app_name}"\n'
+    '2. Registered trademark: "{tm_app_to_compare}"\n'
 )
