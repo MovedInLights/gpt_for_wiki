@@ -1,21 +1,21 @@
-COMPARE_PROMPT = (
-    "As an expert in trademark comparison, you're tasked "
-    "with assessing the similarity between two trademarks. "
-    "Based on the names provided, estimate the similarity "
-    "percentage. "
-    "Your response should include the names of both trademarks "
-    "followed by the estimated similarity percentage, "
-    "formatted as follows: "
-    "'Your name Trademark 1 "
-    "- registered trademark Trademark 2 "
-    "- Similarity Percentage percent'. "
-    "Ensure your reply is concise and "
-    "presented in Russian. Use the word 'процент' to denote percentage."
+FINAL_MESSAGE_PROMPT = (
+    'Ваше обозначение "{Trademark1}" - '
+    'Зарегистрированный товарный знак "{Trademark2}" - '
+    'Процент сходства: {SimilarityPercentage}%.'
 )
 
+COMPARE_PROMPT = (
+    "Как эксперт по сравнению товарных знаков, "
+    "вы должны оценить сходство между двумя товарными знаками. "
+    "На основе предоставленных названий оцените процент сходства. "
+    "Ваш ответ должен включать названия обоих товарных знаков "
+    "с последующим указанием процента сходства, "
+    f"оформленным следующим образом: {FINAL_MESSAGE_PROMPT} "
+    "Убедитесь, что ваш ответ краток и представлен на русском языке."
+)
 
 COMPARE_REQUEST = (
-    'Please compare the following trademarks:\n'
-    '1. My Trademark: "{clients_tm_app_name}"\n'
-    '2. Registered Trademark: "{tm_app_to_compare}"\n'
+    'Пожалуйста, сравните следующие товарные знаки:\n'
+    '1. Моё обозначение: "{clients_tm_app_name}"\n'
+    '2. Зарегистрированный товарный знак: "{tm_app_to_compare}"\n'
 )
