@@ -1,8 +1,8 @@
 FINAL_MESSAGE_PROMPT = (
-    'Ваше обозначение "{Trademark1}" - '
-    'Зарегистрированный товарный знак "{Trademark2}" - '
-    'Процент сходства: {SimilarityPercentage}%. '
-    'Вероятность противопоставления ФИПС - {Prediction}.'
+    'Your trademark "{Trademark1}" - '
+    'Registered trademark "{Trademark2}" - '
+    'Similarity percentage: {SimilarityPercentage}%. '
+    'Opposition probability - {Prediction}.'
 )
 
 COMPARE_PROMPT = (
@@ -14,13 +14,13 @@ COMPARE_PROMPT = (
     "followed by the estimated similarity percentage and the likelihood of opposition, "
     f"formatted as follows: {FINAL_MESSAGE_PROMPT} "
     "Ensure your reply is concise and presented in Russian. "
-    "Use the phrase 'Ваше обозначение' to denote the user's trademark. "
-    "Use the phrase 'Зарегистрированный товарный знак' "
+    "Use the phrase 'Your trademark' to denote the user's trademark. "
+    "Use the phrase 'Registered trademark' "
     "to denote the registered trademark. "
-    "Use the word 'процент' to denote percentage. "
+    "Use the word 'percent' to denote percentage. "
     "For the likelihood of opposition, "
     "use one of the following terms based on the similarity percentage: "
-    "'очень низкая', 'низкая', 'умеренная', 'высокая', 'очень высокая'."
+    "'very low', 'low', 'average', 'high', 'very high'."
 )
 
 COMPARE_REQUEST = (
