@@ -10,6 +10,7 @@ def encode_image(image_path):
 
 class ChatClient:
     def chat_with_gpt(self) -> str:
+        api_key = "TEST"
         if not api_key:
             raise ValueError("GPT key was not obtained")
 
