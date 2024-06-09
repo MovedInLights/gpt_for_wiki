@@ -4,14 +4,14 @@ from chat_processor import ChatClient
 
 
 def test_chat_with_gpt(request):
-    tm_name = request.POST.get('clients_tm_app_name', '')
-    registered_tm_to_compare = request.POST.get('tm_to_compare', '')
+    tm_name = request.POST.get("clients_tm_app_name", "")
+    registered_tm_to_compare = request.POST.get("tm_to_compare", "")
 
     # registered_tm_to_compare_base_64 = convert_image_to_base64(
     # registered_tm_to_compare)
 
     request_text = (
-        f'Please compare the following trademarks:\n'
+        f"Please compare the following trademarks:\n"
         f'1. My Trademark: "{tm_name}"\n'
         f'2. Registered Trademark: "{registered_tm_to_compare}"\n'
     )
@@ -36,7 +36,7 @@ def test_chat_with_gpt(request):
     # context = {
     #     'tm_name': data_for_chat,
     # }
-    return {'result': result}
+    return {"result": result}
 
 
 # TODO Нужно указать какой знак зарегистрирован, какой из них новый.
