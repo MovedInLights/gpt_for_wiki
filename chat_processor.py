@@ -23,14 +23,14 @@ class ChatClient:
                 message_to_add = self.prepare_message(
                     role=message['role'],
                     message_type=message['type'],
-                    text=message['body'],
+                    base64_img=encode_image(message['body']),
                 )
                 messages.append(message_to_add)
             else:
                 message_to_add = self.prepare_message(
                     role=message['role'],
                     message_type=message['type'],
-                    base64_img=encode_image(message['body']),
+                    text=message['body'],
                 )
                 messages.append(message_to_add)
         return messages
