@@ -26,12 +26,13 @@ class ChatClient:
                     text=message['body'],
                 )
                 messages.append(message_to_add)
-            message_to_add = self.prepare_message(
-                role=message['role'],
-                message_type=message['type'],
-                base64_img=encode_image(message['body']),
-            )
-            messages.append(message_to_add)
+            else:
+                message_to_add = self.prepare_message(
+                    role=message['role'],
+                    message_type=message['type'],
+                    base64_img=encode_image(message['body']),
+                )
+                messages.append(message_to_add)
         return messages
 
     def prepare_message(
