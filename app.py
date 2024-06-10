@@ -9,7 +9,7 @@ from prompts import (
     COMPARE_PROMPT,
     COMPARE_REQUEST,
 )
-from utils import convert_image_to_base64, compare_tokens
+from utils import compare_tokens
 
 app = Flask(__name__)
 app.config["JSON_AS_ASCII"] = False
@@ -30,21 +30,45 @@ def compare_tm_apps():
         return "Invalid token", 401
 
     clients_tm_app_name = request.args.get("clients_tm_app_name", None)
-    tm_app_to_compare = request.args.get("tm_app_to_compare", None)
-    image_link_to_compare = request.args.get("image_link_to_compare", None)
+    registered_tm = request.args.get("tm_app_to_compare", None)
+    # image_link_to_compare = request.args.get("image_link_to_compare", None)
     logging.info(
-        f"received request, TM {clients_tm_app_name}, image {image_link_to_compare}"
+        f"received request, TM {clients_tm_app_name}, registered_tm {registered_tm}"
     )
-    convert_image_to_base64(image_link_to_compare)
-    request_text = COMPARE_REQUEST.format(
-        clients_tm_app_name=clients_tm_app_name, tm_app_to_compare=tm_app_to_compare
-    )
+    # convert_image_to_base64(image_link_to_compare)
+    # request_text = COMPARE_REQUEST.format(
+    #     clients_tm_app_name=clients_tm_app_name, tm_app_to_compare=registered_tm
+    # )
 
     chat_client = ChatClient()
-    result = chat_client.chat_with_gpt(
-        prompt_content=COMPARE_PROMPT, request_text=request_text
+    messages = chat_client.compile_messages(
+        messages_draft=[
+            {
+                'role': 'system',
+                'type': 'text',
+                'body': COMPARE_PROMPT,
+            },
+            {
+                'role': 'user',
+                'type': 'text',
+                'body': COMPARE_REQUEST.format(
+                    clients_tm_app_name=clients_tm_app_name,
+                    registered_tm=registered_tm,
+                ),
+            },
+        ]
     )
-    return {"result": result}
+    logging.info(f'Received messages for GPT {messages}')
+
+    chat_response = chat_client.chat_with_gpt(
+        model="gpt-4o",
+        temperature=0,
+        messages=messages,
+    )
+    # result = chat_client.chat_with_gpt(
+    #     prompt_content=COMPARE_PROMPT, request_text=request_text
+    # )
+    return {"result": chat_response}
 
 
 @app.route("/gpt_conclusion")
