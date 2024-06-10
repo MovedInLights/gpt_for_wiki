@@ -19,17 +19,17 @@ class ChatClient:
     def compile_messages(self, messages_draft: list):
         messages = []
         for message in messages_draft:
-            if message["type"] != "text":
+            if message['type'] != 'text':
                 message_to_add = self.prepare_message(
-                    role="user",
-                    message_type=message["type"],
-                    text=message["text"],
+                    role=message['role'],
+                    message_type=message['type'],
+                    text=message['body'],
                 )
                 messages.append(message_to_add)
             message_to_add = self.prepare_message(
-                role="user",
-                message_type=message["type"],
-                base64_img=encode_image(message["name"]),
+                role=message['role'],
+                message_type=message['type'],
+                base64_img=encode_image(message['body']),
             )
             messages.append(message_to_add)
         return messages
