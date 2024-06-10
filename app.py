@@ -34,6 +34,7 @@ def compare_tm_apps():
     logging.info(
         f"received request, TM {clients_tm_app_name}, registered_tm {registered_tm}"
     )
+    logging.info('JUST A MESSAGE')
 
     chat_client = ChatClient()
     messages = chat_client.compile_messages(
