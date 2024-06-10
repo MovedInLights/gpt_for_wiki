@@ -16,7 +16,7 @@ COMPARE_PROMPT = (
 COMPARE_REQUEST = (
     "Please compare the following trademarks:\n"
     '1. My Trademark: "{clients_tm_app_name}"\n'
-    '2. Registered Trademark: "{tm_app_to_compare}"\n'
+    '2. Registered Trademark: "{registered_tm}"\n'
 )
 # fmt: off
 RUPTO_TOOLKIT_TEXT = """1. Общие положения
