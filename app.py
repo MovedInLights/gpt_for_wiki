@@ -31,14 +31,9 @@ def compare_tm_apps():
 
     clients_tm_app_name = request.args.get("clients_tm_app_name", None)
     registered_tm = request.args.get("tm_app_to_compare", None)
-    # image_link_to_compare = request.args.get("image_link_to_compare", None)
     logging.info(
         f"received request, TM {clients_tm_app_name}, registered_tm {registered_tm}"
     )
-    # convert_image_to_base64(image_link_to_compare)
-    # request_text = COMPARE_REQUEST.format(
-    #     clients_tm_app_name=clients_tm_app_name, tm_app_to_compare=registered_tm
-    # )
 
     chat_client = ChatClient()
     messages = chat_client.compile_messages(
