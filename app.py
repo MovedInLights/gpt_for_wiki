@@ -61,9 +61,6 @@ def compare_tm_apps():
         temperature=0,
         messages=messages,
     )
-    # result = chat_client.chat_with_gpt(
-    #     prompt_content=COMPARE_PROMPT, request_text=request_text
-    # )
     return {"result": chat_response}
 
 

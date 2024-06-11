@@ -46,8 +46,7 @@ jobs:
             git reset --hard origin/main
             docker-compose down
             docker pull foreverfilthy/gpt_for_wiki:latest
-            docker-compose build --no-cache
-            docker-compose up -d --force-recreate
+            docker-compose up --build -d
             docker image prune -a -f
 
   send_message:

@@ -46,11 +46,7 @@ def create_gpt_message(
     role: str, message_type: str, base64_img: str = "", text: str = ""
 ):
     logging.info(f"Creating GPT message for {role} {message_type} {base64_img} {text}")
-    if role == Role.SYSTEM:
-        return {
-            "role": role,
-            "content": text,
-        }
+
     if message_type == "image_url":
         image_dict_data_for_gpt = get_image_gpt_dict(base64_img)
         return {
@@ -62,10 +58,7 @@ def create_gpt_message(
         }
     return {
         "role": role,
-        "content": {
-            "type": message_type,
-            "text": text,
-        },
+        "content": text,
     }
 
 
