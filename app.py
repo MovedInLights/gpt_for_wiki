@@ -89,7 +89,7 @@ def gpt_conclusion():
             },
             {
                 "role": "user",
-                "name": "image_url",
+                "type": "image_url",
                 "body": image_link_to_compare,
             },
         ]
