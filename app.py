@@ -8,10 +8,8 @@ from chat_processor import ChatClient
 from prompts import (
     COMPARE_PROMPT,
     COMPARE_REQUEST,
-    RUPTO_TOOLKIT_TEXT,
-    CONCLUSION_PROMPT,
 )
-from utils import compare_tokens
+from utils import compare_tokens, generate_conclusion_message_draft
 
 app = Flask(__name__)
 app.config["JSON_AS_ASCII"] = False
@@ -26,15 +24,15 @@ app.logger.addHandler(handler)
 
 @app.route("/compare_tm_apps")
 def compare_tm_apps():
-    logging.debug("Application started, logging is configured correctly.")
-    is_token_correct = compare_tokens(request.headers.get("Authorization"))
+    logging.debug('Application started, logging is configured correctly.')
+    is_token_correct = compare_tokens(request.headers.get('Authorization'))
     if not is_token_correct:
         return "Invalid token", 401
 
-    clients_tm_app_name = request.args.get("clients_tm_app_name", None)
-    registered_tm = request.args.get("tm_app_to_compare", None)
+    clients_tm_app_name = request.args.get('clients_tm_app_name', None)
+    registered_tm = request.args.get('tm_app_to_compare', None)
     logging.info(
-        f"received request, TM {clients_tm_app_name}, registered_tm {registered_tm}"
+        f'received request, TM {clients_tm_app_name}, registered_tm {registered_tm}'
     )
 
     chat_client = ChatClient()
@@ -76,23 +74,10 @@ def gpt_conclusion():
 
     chat_client = ChatClient()
     messages = chat_client.compile_messages(
-        messages_draft=[
-            {
-                'role': 'system',
-                'type': 'text',
-                'body': CONCLUSION_PROMPT.format(RUPTO_TOOLKIT_TEXT=RUPTO_TOOLKIT_TEXT),
-            },
-            {
-                "role": "user",
-                "type": "text",
-                "body": clients_tm_app_name,
-            },
-            {
-                "role": "user",
-                "type": "image_url",
-                "body": image_link_to_compare,
-            },
-        ]
+        messages_draft=generate_conclusion_message_draft(
+            clients_tm_app_name=clients_tm_app_name,
+            image_link_to_compare=image_link_to_compare,
+        )
     )
     chat_response = chat_client.chat_with_gpt(
         model="gpt-4o",

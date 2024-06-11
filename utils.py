@@ -8,6 +8,8 @@ from typing import Union, Dict, Any, List
 import requests
 from PIL import Image
 
+from prompts import CONCLUSION_PROMPT, RUPTO_TOOLKIT_TEXT
+
 
 # def convert_string_to_json(data_to_convert: str) -> Union[Dict[str, Any], List[Any]]:
 #     try:
@@ -76,3 +78,23 @@ def compare_tokens(token: str) -> bool:
     if not token or api_token is None or token != "Bearer " + api_token:
         return False
     return True
+
+
+def generate_conclusion_message_draft(clients_tm_app_name, image_link_to_compare):
+    return [
+        {
+            'role': 'system',
+            'type': 'text',
+            'body': CONCLUSION_PROMPT.format(RUPTO_TOOLKIT_TEXT=RUPTO_TOOLKIT_TEXT),
+        },
+        {
+            "role": "user",
+            "type": "text",
+            "body": clients_tm_app_name,
+        },
+        {
+            "role": "user",
+            "type": "image_url",
+            "body": image_link_to_compare,
+        },
+    ]
