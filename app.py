@@ -8,6 +8,8 @@ from chat_processor import ChatClient
 from prompts import (
     COMPARE_PROMPT,
     COMPARE_REQUEST,
+    RUPTO_TOOLKIT_TEXT,
+    CONCLUSION_PROMPT,
 )
 from utils import compare_tokens
 
@@ -76,10 +78,17 @@ def gpt_conclusion():
     messages = chat_client.compile_messages(
         messages_draft=[
             {
+                'role': 'system',
+                'type': 'text',
+                'body': CONCLUSION_PROMPT.format(RUPTO_TOOLKIT_TEXT=RUPTO_TOOLKIT_TEXT),
+            },
+            {
+                "role": "user",
                 "name": clients_tm_app_name,
                 "type": "text",
             },
             {
+                "role": "user",
                 "name": image_link_to_compare,
                 "type": "image_url",
             },
