@@ -54,7 +54,7 @@ class ChatClient:
 
         completion = client.chat.completions.create(
             model=model,
-            messages=[messages],
+            messages=messages,
         )
 
         return completion.choices[0].message.content
