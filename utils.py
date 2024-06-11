@@ -8,7 +8,12 @@ from typing import Union, Dict, Any, List
 import requests
 from PIL import Image
 
-from prompts import CONCLUSION_PROMPT, RUPTO_TOOLKIT_TEXT
+from prompts import (
+    CONCLUSION_PROMPT,
+    RUPTO_TOOLKIT_TEXT,
+    COMPARE_PROMPT,
+    COMPARE_REQUEST,
+)
 
 
 # def convert_string_to_json(data_to_convert: str) -> Union[Dict[str, Any], List[Any]]:
@@ -96,5 +101,23 @@ def generate_conclusion_message_draft(clients_tm_app_name, image_link_to_compare
             "role": "user",
             "type": "image_url",
             "body": image_link_to_compare,
+        },
+    ]
+
+
+def generate_compare_message_draft(clients_tm_app_name, registered_tm):
+    return [
+        {
+            'role': 'system',
+            'type': 'text',
+            'body': COMPARE_PROMPT,
+        },
+        {
+            'role': 'user',
+            'type': 'text',
+            'body': COMPARE_REQUEST.format(
+                clients_tm_app_name=clients_tm_app_name,
+                registered_tm=registered_tm,
+            ),
         },
     ]

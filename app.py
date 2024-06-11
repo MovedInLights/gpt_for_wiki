@@ -5,11 +5,11 @@ from flask import Flask
 from flask import request
 
 from chat_processor import ChatClient
-from prompts import (
-    COMPARE_PROMPT,
-    COMPARE_REQUEST,
+from utils import (
+    compare_tokens,
+    generate_conclusion_message_draft,
+    generate_compare_message_draft,
 )
-from utils import compare_tokens, generate_conclusion_message_draft
 
 app = Flask(__name__)
 app.config["JSON_AS_ASCII"] = False
@@ -37,21 +37,9 @@ def compare_tm_apps():
 
     chat_client = ChatClient()
     messages = chat_client.compile_messages(
-        messages_draft=[
-            {
-                'role': 'system',
-                'type': 'text',
-                'body': COMPARE_PROMPT,
-            },
-            {
-                'role': 'user',
-                'type': 'text',
-                'body': COMPARE_REQUEST.format(
-                    clients_tm_app_name=clients_tm_app_name,
-                    registered_tm=registered_tm,
-                ),
-            },
-        ]
+        messages_draft=generate_compare_message_draft(
+            clients_tm_app_name=clients_tm_app_name, registered_tm=registered_tm
+        )
     )
     logging.info(f'Received messages for GPT {messages}')
 
