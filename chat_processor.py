@@ -1,3 +1,4 @@
+import logging
 import os
 
 from openai import OpenAI
@@ -19,6 +20,7 @@ class ChatClient:
     def compile_messages(self, messages_draft: list):
         messages = []
         for message in messages_draft:
+            logging.info(f'Working with message: {message}')
             if message['type'] != 'text':
                 message_to_add = self.prepare_message(
                     role=message['role'],

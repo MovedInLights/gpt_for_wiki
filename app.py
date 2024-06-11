@@ -84,13 +84,13 @@ def gpt_conclusion():
             },
             {
                 "role": "user",
-                "name": clients_tm_app_name,
                 "type": "text",
+                "body": clients_tm_app_name,
             },
             {
                 "role": "user",
-                "name": image_link_to_compare,
-                "type": "image_url",
+                "name": "image_url",
+                "body": image_link_to_compare,
             },
         ]
     )
