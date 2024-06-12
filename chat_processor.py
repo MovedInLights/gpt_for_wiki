@@ -42,10 +42,12 @@ class ChatClient:
         if base64_img != "":
             message = {
                 "role": role,
-                "content": {
-                    "type": message_type,
-                    "image_url": get_image_gpt_dict(base64_img),
-                },
+                "content": [
+                    {
+                        "type": message_type,
+                        "image_url": get_image_gpt_dict(base64_img),
+                    }
+                ],
             }
             logging.info(f'Message is {message}')
             return message
