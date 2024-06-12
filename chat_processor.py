@@ -4,14 +4,7 @@ from typing import Dict, Any
 
 from openai import OpenAI
 
-from utils import create_gpt_message, convert_url_image_to_base64
-
-
-# можно сделать класс и добавлять туда методы, которые могут быть выполнены
-# Сделать класс клиент. Второй класс с логикой.
-# Во втором классе должен использоваться клиент
-#
-#
+from utils import convert_url_image_to_base64, get_image_gpt_dict
 
 
 class ChatClient:
@@ -41,13 +34,25 @@ class ChatClient:
     def prepare_message(
         self, role: str, message_type: str, base64_img: str | None = "", text: str = ""
     ) -> Dict[str, Any]:
+        logging.info(
+            f"Creating GPT message for role "
+            f"{role}, message_type {message_type}, image {base64_img}, text {text}"
+        )
         if base64_img != "":
-            return create_gpt_message(
-                role=role, message_type=message_type, base64_img=base64_img
-            )
-        if text != "":
-            return create_gpt_message(role=role, message_type=message_type, text=text)
-        return {}
+            message = {
+                "role": role,
+                "content": {
+                    "type": message_type,
+                    "image_url": get_image_gpt_dict(base64_img),
+                },
+            }
+            logging.info(f'Message is {message}')
+            return message
+
+        return {
+            "role": role,
+            "content": text,
+        }
 
     def chat_with_gpt(self, model: str, temperature: int, messages: list[dict]) -> str:
         api_key = os.getenv("GPT_KEY")
