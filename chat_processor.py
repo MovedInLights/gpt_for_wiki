@@ -29,6 +29,7 @@ class ChatClient:
                     text=message['body'],
                 )
                 messages.append(message_to_add)
+        logging.info(f'Compiled messages: {messages}')
         return messages
 
     def prepare_message(
