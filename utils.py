@@ -35,7 +35,6 @@ def convert_url_image_to_base64(image_url) -> str | None:
         response.raise_for_status()
         image_data = response.content
         decoded_image = base64.b64encode(image_data).decode("utf-8")
-        logging.info(f"Decoded image: {decoded_image}")
         return decoded_image
     except Exception as e:
         logging.warning(f"Error converting image to base64: {e}")
@@ -45,7 +44,10 @@ def convert_url_image_to_base64(image_url) -> str | None:
 def create_gpt_message(
     role: str, message_type: str, base64_img: str | None = "", text: str = ""
 ) -> Dict[str, Any]:
-    logging.info(f"Creating GPT message for {role} {message_type} {base64_img} {text}")
+    logging.info(
+        f"Creating GPT message for role "
+        f"{role}, message_type {message_type}, image {base64_img}, text {text}"
+    )
 
     if message_type == "image_url":
         image_dict_data_for_gpt = get_image_gpt_dict(base64_img)
