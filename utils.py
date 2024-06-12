@@ -41,29 +41,6 @@ def convert_url_image_to_base64(image_url) -> str | None:
         return None
 
 
-def create_gpt_message(
-    role: str, message_type: str, base64_img: str | None = "", text: str = ""
-) -> Dict[str, Any]:
-    logging.info(
-        f"Creating GPT message for role "
-        f"{role}, message_type {message_type}, image {base64_img}, text {text}"
-    )
-
-    if message_type == "image_url":
-        image_dict_data_for_gpt = get_image_gpt_dict(base64_img)
-        return {
-            "role": role,
-            "content": {
-                "type": message_type,
-                "image_url": image_dict_data_for_gpt,
-            },
-        }
-    return {
-        "role": role,
-        "content": text,
-    }
-
-
 def get_image_gpt_dict(base64_img: str | None) -> Dict[str, str]:
     return {"url": f"data:image/jpeg;base64,{base64_img}"}
 
