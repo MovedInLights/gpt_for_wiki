@@ -67,6 +67,7 @@ def gpt_conclusion():
             image_link_to_compare=image_link_to_compare,
         )
     )
+    logging.info(f'Received messages for GPT {messages}')
     chat_response = chat_client.chat_with_gpt(
         model="gpt-4o",
         temperature=0,

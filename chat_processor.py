@@ -49,7 +49,7 @@ class ChatClient:
             return create_gpt_message(role=role, message_type=message_type, text=text)
         return {}
 
-    def chat_with_gpt(self, model: str, temperature: int, messages: dict) -> str:
+    def chat_with_gpt(self, model: str, temperature: int, messages: list[dict]) -> str:
         api_key = os.getenv("GPT_KEY")
         if not api_key:
             raise ValueError("GPT key was not obtained")
