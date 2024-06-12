@@ -52,7 +52,7 @@ class ChatClient:
 
         return {
             "role": role,
-            "content": text,
+            "content": [text],
         }
 
     def chat_with_gpt(self, model: str, temperature: int, messages: list[dict]) -> str:
