@@ -2,11 +2,9 @@ import base64
 import logging
 import os
 from enum import Enum
-from io import BytesIO
-from typing import Union, Dict, Any, List
+from typing import Dict, Any
 
 import requests
-from PIL import Image
 
 from prompts import (
     CONCLUSION_PROMPT,
@@ -31,17 +29,12 @@ class Role(str, Enum):
     ASSISTANT = "assistant"
 
 
-def convert_image_to_base64(image_url):
+def convert_url_image_to_base64(image_url) -> str | None:
     try:
         response = requests.get(image_url)
         response.raise_for_status()
-        compressed_image = Image.open(BytesIO(response.content))
-        compressed_image.thumbnail((120, 80), Image.Resampling.LANCZOS)
-
-        img_byte_arr = BytesIO()
-        image_format = "JPEG"
-        compressed_image.save(img_byte_arr, format=image_format, quality=75)
-        decoded_image = base64.b64encode(img_byte_arr.getvalue()).decode("utf-8")
+        image_data = response.content
+        decoded_image = base64.b64encode(image_data).decode("utf-8")
         logging.info(f"Decoded image: {decoded_image}")
         return decoded_image
     except Exception as e:
@@ -50,8 +43,8 @@ def convert_image_to_base64(image_url):
 
 
 def create_gpt_message(
-    role: str, message_type: str, base64_img: str = "", text: str = ""
-):
+    role: str, message_type: str, base64_img: str | None = "", text: str = ""
+) -> Dict[str, Any]:
     logging.info(f"Creating GPT message for {role} {message_type} {base64_img} {text}")
 
     if message_type == "image_url":
@@ -69,11 +62,11 @@ def create_gpt_message(
     }
 
 
-def get_image_gpt_dict(base64_img: str) -> Union[Dict[str, Any], List[Any]]:
+def get_image_gpt_dict(base64_img: str | None) -> Dict[str, str]:
     return {"url": f"data:image/jpeg;base64,{base64_img}"}
 
 
-def encode_image(image_path):
+def encode_image(image_path) -> str:
     with open(image_path, "rb") as image_file:
         return base64.b64encode(image_file.read()).decode("utf-8")
 
@@ -85,7 +78,9 @@ def compare_tokens(token: str) -> bool:
     return True
 
 
-def generate_conclusion_message_draft(clients_tm_app_name, image_link_to_compare):
+def generate_conclusion_message_draft(
+    clients_tm_app_name: str, image_link_to_compare: str
+) -> list[Dict[str, Any]]:
     return [
         {
             'role': 'system',
@@ -105,7 +100,9 @@ def generate_conclusion_message_draft(clients_tm_app_name, image_link_to_compare
     ]
 
 
-def generate_compare_message_draft(clients_tm_app_name, registered_tm):
+def generate_compare_message_draft(
+    clients_tm_app_name: str, registered_tm: str
+) -> list[Dict[str, Any]]:
     return [
         {
             'role': 'system',
