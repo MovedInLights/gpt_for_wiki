@@ -19,3 +19,32 @@ pillow = "^10.3.0"
 [build-system]
 requires = ["poetry-core"]
 build-backend = "poetry.core.masonry.api"
+
+
+[tool.ruff]
+line-length = 88
+exclude = [
+    "office/migrations/",
+    "users/migrations/",
+    "tests/",
+    ".venv/",
+    ".tox/",
+    ".git/",
+    ".mypy_cache/",
+    "_build/",
+    "buck-out/",
+    "build/",
+    "dist/",
+    "node_modules/",
+    ".eggs/",
+    ".pytest_cache/",
+    ".cache/",
+    ".ropeproject/",
+    ".vscode/",
+    ".idea/",
+    ".ipynb_checkpoints/",
+    ".DS_Store/",
+    ".coverage/",
+    ".coverage.*",
+    "gpt_prompts/"
+]

@@ -1,6 +1,6 @@
+# fmt: off
 COMPARE_PROMPT = (
-    "As an expert in trademark comparison, you're tasked with "
-    "assessing the similarity between two trademarks. "
+    "As an expert in trademark comparison, you're tasked with assessing the similarity between two trademarks. "
     "Based on the names provided, estimate the similarity "
     "percentage. "
     "Your response should include the names of both trademarks "
@@ -12,3 +12,4 @@ COMPARE_PROMPT = (
     "Ensure your reply is concise and "
     "presented in Russian. Use the word 'процент' to denote percentage."
 )
+# fmt: on
