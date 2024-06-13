@@ -68,5 +68,5 @@ class ChatClient:
             model=model,
             messages=messages,
         )
-
+        logging.info(f'GPT conclusion: {completion}')
         return completion.choices[0].message.content
