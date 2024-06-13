@@ -1,6 +1,6 @@
 COMPARE_PROMPT = (
-    "As an expert in trademark comparison, you're tasked "
-    "with assessing the similarity between two trademarks. "
+    "As an expert in trademark comparison, "
+    "you're tasked with assessing the similarity between two trademarks. "
     "Based on the names provided, estimate the similarity "
     "percentage. "
     "Your response should include the names of both trademarks "
