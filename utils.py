@@ -60,12 +60,12 @@ def generate_conclusion_message_draft(
         {
             "role": Role.USER,
             "type": "text",
-            "body": clients_tm_app_name,
+            "body": f'Clients desirable name: {clients_tm_app_name}',
         },
         {
             "role": Role.USER,
             "type": "image_url",
-            "body": image_link_to_compare,
+            "body": f'Already registered logo: {image_link_to_compare}',
         },
     ]
 

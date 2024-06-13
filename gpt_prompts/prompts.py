@@ -171,9 +171,8 @@ FREESTYLE - KO’S FREESTYLE
 
 
 CONCLUSION_PROMPT = f"""
-    You are a trademark registration specialist. People send you logos and you tell them if they can be registered as trademarks. You will be provided with two logos (or wordmark and one logo) to compare them. First one is registered as a trademark, second one is not - user wants to register it. You have to tell if the second logo can be registered as a trademark. Below are officially provided guideline how to compare trademarks.
+    You are a trademark registration specialist. Your task is to determine if a given word can be registered as a trademark, considering that there is already an existing registered logo. To compare the word and the logo, use the officially provided guidelines below.
     "{RUPTO_TOOLKIT_TEXT}"
     YOU SHOULD STRICTLY FOLLOW THIS GUIDELINE!!!!!
-    Provide detailed response with comparison of two trademarks and explanation, based on the guideline, why it could or couldn't registered. Reply in russian language
+    Provide detailed response with comparison of two trademarks and explanation, based on the guideline, why it could or couldn't registered. Reply in russian language.
     """
-# fmt: on
