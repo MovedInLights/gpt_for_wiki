@@ -6,21 +6,12 @@ from typing import Dict, Any
 
 import requests
 
-from prompts import (
+from gpt_prompts.prompts import (
     CONCLUSION_PROMPT,
     RUPTO_TOOLKIT_TEXT,
     COMPARE_PROMPT,
     COMPARE_REQUEST,
 )
-
-
-# def convert_string_to_json(data_to_convert: str) -> Union[Dict[str, Any], List[Any]]:
-#     try:
-#         data_for_chat = json.loads(data_to_convert)
-#     except json.JSONDecodeError as e:
-#         logging.warning(f'Error parsing JSON: {e}')
-#         data_for_chat = []
-#     return data_for_chat
 
 
 class Role(str, Enum):
@@ -62,17 +53,17 @@ def generate_conclusion_message_draft(
 ) -> list[Dict[str, Any]]:
     return [
         {
-            'role': 'system',
+            'role': Role.SYSTEM,
             'type': 'text',
             'body': CONCLUSION_PROMPT.format(RUPTO_TOOLKIT_TEXT=RUPTO_TOOLKIT_TEXT),
         },
         {
-            "role": "user",
+            "role": Role.USER,
             "type": "text",
             "body": clients_tm_app_name,
         },
         {
-            "role": "user",
+            "role": Role.USER,
             "type": "image_url",
             "body": image_link_to_compare,
         },
@@ -84,12 +75,12 @@ def generate_compare_message_draft(
 ) -> list[Dict[str, Any]]:
     return [
         {
-            'role': 'system',
+            'role': Role.SYSTEM,
             'type': 'text',
             'body': COMPARE_PROMPT,
         },
         {
-            'role': 'user',
+            'role': Role.USER,
             'type': 'text',
             'body': COMPARE_REQUEST.format(
                 clients_tm_app_name=clients_tm_app_name,
