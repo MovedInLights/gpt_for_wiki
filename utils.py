@@ -65,7 +65,7 @@ def generate_conclusion_message_draft(
         {
             "role": Role.USER,
             "type": "image_url",
-            "body": f'Already registered logo: {image_link_to_compare}',
+            "body": f'{image_link_to_compare}',
         },
     ]
 
