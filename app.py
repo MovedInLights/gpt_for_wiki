@@ -48,6 +48,7 @@ def compare_tm_apps():
         temperature=0,
         messages=messages,
     )
+    logging.info(f'Received response for GPT {chat_response}')
     return {"result": chat_response}
 
 
