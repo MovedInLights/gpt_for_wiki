@@ -6,6 +6,7 @@ from bs4 import BeautifulSoup
 
 
 def linkmark_request(tm_name, classes_for_search):
+    logging.info(f'Requesting linkmark for {tm_name} with classes {classes_for_search}')
     response = requests.post(
         'https://linkmark.ru/search',
         data={
