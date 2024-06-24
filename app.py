@@ -5,6 +5,7 @@ from flask import Flask
 from flask import request
 
 from chat_processor import ChatClient
+from linkmark_client.linkmark_workflow import linkmark_request
 from utils import (
     compare_tokens,
     generate_conclusion_message_draft,
@@ -75,3 +76,12 @@ def gpt_conclusion():
         messages=messages,
     )
     return {"result": chat_response}
+
+
+@app.route("/tm_search")
+def tm_search():
+    return linkmark_request(
+        request,
+        tm_name=request.args.get("tm_name", None),
+        classes_for_search=request.args.get("classes_for_search", None),
+    )
