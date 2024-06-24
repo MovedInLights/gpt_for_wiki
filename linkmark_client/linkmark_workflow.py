@@ -5,11 +5,11 @@ import requests
 from bs4 import BeautifulSoup
 
 
-def linkmark_request(request, tm_name, classes_for_search):
+def linkmark_request(tm_name, classes_for_search):
     response = requests.post(
         'https://linkmark.ru/search',
         data={
-            'search': request.POST.get('tm_name'),
+            'search': tm_name,
             'search_2': None,
             'vena-class': 'Выбрать',
             'search_4': None,
