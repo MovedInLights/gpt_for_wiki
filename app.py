@@ -78,12 +78,12 @@ def gpt_conclusion():
     return {"result": chat_response}
 
 
-@app.route("/tm_search")
+@app.route("/tm_search", methods=['POST'])
 def tm_search():
     if request.method != 'POST':
         return "Method not allowed", 405
     logging.info(f'received request, TM {request}')
     return linkmark_request(
         tm_name=request.args.get('tm_name', None),
-        classes_for_search=request.args.get("classes_for_search", None),
+        classes_for_search=request.args.get('classes_for_search', None),
     )
