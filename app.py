@@ -81,7 +81,6 @@ def gpt_conclusion():
 @app.route("/tm_search")
 def tm_search():
     return linkmark_request(
-        request,
-        tm_name=request.args.get("tm_name", None),
+        tm_name=request.args.get('tm_name', None),
         classes_for_search=request.args.get("classes_for_search", None),
     )
