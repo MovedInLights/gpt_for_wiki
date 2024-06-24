@@ -63,4 +63,5 @@ def linkmark_request(tm_name, classes_for_search):
         'results': result['res'],
         'data_for_chat': data_for_chat_json,
     }
+    logging.info(f'Returning the result {context}')
     return context
