@@ -1,10 +1,11 @@
-COMPARE_PROMPT = (
-    "As an expert in trademark comparison, you're tasked with assessing the similarity between two trademarks. "
-    "Based on the names provided, estimate the similarity percentage. "
-    "Your response should include the names of both trademarks followed by the estimated similarity percentage, formatted as follows: "
-    "'Trademark 1 - Trademark 2 - Similarity Percentage percent'. "
-    "Ensure your reply is concise and presented in Russian. Use the word 'процент' to denote percentage."
-)
+# COMPARE_PROMPT = (
+#     "As an expert in trademark comparison, you're tasked with assessing the similarity between two trademarks. "
+#     "Based on the names provided, estimate the similarity percentage. "
+#     "Your response should include the names of both trademarks followed by the estimated similarity percentage, formatted as follows: "
+#     "'Trademark 1 - Trademark 2 - Similarity Percentage percent'. "
+#     "Ensure your reply is concise and presented in Russian. Use the word 'процент' to denote percentage."
+# )
+
 
 COMPARE_REQUEST = (
     "Please compare the following trademarks: 1. My Trademark: '{clients_tm_app_name}' 2. Registered Trademark: '{registered_tm}'"
@@ -170,9 +171,18 @@ FREESTYLE - KO’S FREESTYLE
 6.3.5. В том случае, если при экспертизе комбинированного обозначения будет установлено, что его элемент, не относящийся к общей композиции обозначения, тождественен товарному знаку другого лица, охраняемому в Российской Федерации в отношении однородных товаров, оценка охраноспособности заявленного комбинированного обозначения проводится по другому основанию для отказа в государственной регистрации товарного знака, а именно определяется способность ввести в заблуждение потребителя относительно изготовителя товара."""
 
 
-CONCLUSION_PROMPT = f"""
+COMPARE_PROMPT = f"""
     You are a trademark registration specialist. Your task is to determine if a given word can be registered as a trademark, considering that there is already an existing registered logo. To compare the word and the logo, use the officially provided guidelines below.
     "{RUPTO_TOOLKIT_TEXT}"
     YOU SHOULD STRICTLY FOLLOW THIS GUIDELINE!!!!!
     Provide detailed response with comparison of two trademarks and explanation, based on the guideline, why it could or couldn't registered. Reply in russian language.
+    """
+
+
+CONCLUSION_PROMPT = f"""
+    You are a trademark registration specialist. Your task is to determine if a given word can be registered as a trademark, considering that there is already an existing registered list of trademarks. To compare the word and the list, use the officially provided guidelines below.
+    "{RUPTO_TOOLKIT_TEXT}"
+    YOU SHOULD STRICTLY FOLLOW THIS GUIDELINE!!!!!
+    Provide your answer with a percentage probability calculation. The percentage should reflect how likely it is that the trademark will be registered, given the list of registered trademarks. You just have to answer with a number.
+
     """
