@@ -38,7 +38,10 @@ def linkmark_request(tm_name, classes_for_search):
 
     tm_name_list = []
     for index, item in enumerate(result['res']):
-        logging.info(f'Processing {item}')
+        logging.info(
+            f'Processing {item} {type(item)}, item words are '
+            f'{item["words"]}, json: {json.loads(item["icgs"])}'
+        )
         item['icgs'] = json.loads(item['icgs'])
         item['id'] = index
         tm_name_list.append(item.get('words', ''))
