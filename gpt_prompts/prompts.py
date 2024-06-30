@@ -171,7 +171,7 @@ FREESTYLE - KO’S FREESTYLE
 6.3.5. В том случае, если при экспертизе комбинированного обозначения будет установлено, что его элемент, не относящийся к общей композиции обозначения, тождественен товарному знаку другого лица, охраняемому в Российской Федерации в отношении однородных товаров, оценка охраноспособности заявленного комбинированного обозначения проводится по другому основанию для отказа в государственной регистрации товарного знака, а именно определяется способность ввести в заблуждение потребителя относительно изготовителя товара."""
 
 
-COMPARE_PROMPT = f"""
+CONCLUSION_PROMPT = f"""
     You are a trademark registration specialist. Your task is to determine if a given word can be registered as a trademark, considering that there is already an existing registered logo. To compare the word and the logo, use the officially provided guidelines below.
     "{RUPTO_TOOLKIT_TEXT}"
     YOU SHOULD STRICTLY FOLLOW THIS GUIDELINE!!!!!
@@ -179,7 +179,7 @@ COMPARE_PROMPT = f"""
     """
 
 
-CONCLUSION_PROMPT = f"""
+COMPARE_PROMPT = f"""
     You are a trademark registration specialist. Your task is to determine if a given word can be registered as a trademark, considering that there is already an existing registered list of trademarks. To compare the word and the list, use the officially provided guidelines below.
     "{RUPTO_TOOLKIT_TEXT}"
     YOU SHOULD STRICTLY FOLLOW THIS GUIDELINE!!!!!
