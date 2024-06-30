@@ -36,9 +36,12 @@ def linkmark_request(tm_name, classes_for_search):
     )
     result = response.json()
 
+    tm_name_list = []
     for index, item in enumerate(result['res']):
         item['icgs'] = json.loads(item['icgs'])
         item['id'] = index
+        if item['status'] != '1':
+            tm_name_list.append(item['words'])
 
     data_for_chat = [
         {
@@ -63,5 +66,6 @@ def linkmark_request(tm_name, classes_for_search):
         'classes_for_search': classes_for_search,
         'results': result['res'],
         'data_for_chat': data_for_chat_json,
+        'tm_name_list': tm_name_list,
     }
     return context
