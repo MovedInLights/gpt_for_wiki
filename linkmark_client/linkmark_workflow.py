@@ -40,8 +40,8 @@ def linkmark_request(tm_name, classes_for_search):
     for index, item in enumerate(result['res']):
         item['icgs'] = json.loads(item['icgs'])
         item['id'] = index
-        if item['status'] != '1':
-            tm_name_list.append(item['words'])
+        if item['status'] != 1:
+            tm_name_list.append(item.get('words', ''))
 
     data_for_chat = [
         {
