@@ -38,6 +38,7 @@ def linkmark_request(tm_name, classes_for_search):
 
     tm_name_list = []
     for index, item in enumerate(result['res']):
+        logging.info(f'Processing {item}')
         item['icgs'] = json.loads(item['icgs'])
         item['id'] = index
         if item['status'] != 1:
