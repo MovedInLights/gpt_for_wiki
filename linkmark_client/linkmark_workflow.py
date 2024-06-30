@@ -43,6 +43,8 @@ def linkmark_request(tm_name, classes_for_search):
         item['id'] = index
         tm_name_list.append(item.get('words', ''))
 
+    logging.info(f'Finished processing {tm_name_list} items')
+
     data_for_chat = [
         {
             'status': tm.get('status', ''),
