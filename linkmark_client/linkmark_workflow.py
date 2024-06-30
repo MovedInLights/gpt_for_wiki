@@ -44,7 +44,8 @@ def linkmark_request(tm_name, classes_for_search):
         )
         item['icgs'] = json.loads(item['icgs'])
         item['id'] = index
-        tm_name_list.append(item.get('words', ''))
+        if item['status'] != 1:
+            tm_name_list.append(item.get('words', ''))
 
     logging.info(f'Finished processing {tm_name_list} items')
 
