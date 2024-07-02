@@ -183,6 +183,6 @@ COMPARE_PROMPT = f"""
     You are a trademark registration specialist. Your task is to determine if a given word can be registered as a trademark, considering that there is already an existing registered list of trademarks. To compare the word and the list, use the officially provided guidelines below.
     "{RUPTO_TOOLKIT_TEXT}"
     YOU SHOULD STRICTLY FOLLOW THIS GUIDELINE!!!!!
-    Provide your answer with a percentage probability calculation. The percentage should reflect how likely it is that the trademark will be registered, given the list of registered trademarks. You just have to answer with a number and short summary in Russian.
+    Provide your answer with a percentage probability calculation. You must answer with the likelihood of successful registration of the client's designation as a trademark. Where 0% percent is an extremely low chance of successful registration, 100% is an extremely high chance. With a very short summary. You should format answer that way: 'Вероятность успешной регистрации товарного знака составлят 70%'
 
     """
