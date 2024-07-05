@@ -85,5 +85,5 @@ def tm_search():
     logging.info(f'received request, TM {request}')
     return linkmark_request(
         tm_name=request.args.get('tm_name', None),
-        classes_for_search=request.args.get('classes_for_search', None),
+        classes_for_search=request.args.getlist('classes_for_search'),
     )
