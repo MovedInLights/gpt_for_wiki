@@ -93,17 +93,17 @@ def tm_search():
     tm_name = request.args.get('tm_name', None)
     classes_for_search = request.args.getlist('classes_for_search')
 
-    search_type = get_search_type(
+    search_type_class = get_search_type(
         search_type=search_type, tm_name=tm_name, classes_for_search=classes_for_search
     )
-    linkmark_response = search_type.make_request()
+    linkmark_response = search_type_class.make_request()
     logging.info(
         f'Search type is {search_type}, '
         f'tm_name is {tm_name}, '
         f'classes_for_search are {classes_for_search}, '
         f'linkmark_response is {linkmark_response}'
     )
-    return search_type.handle_response(linkmark_response)
+    return search_type_class.handle_response(linkmark_response)
 
 
 def get_search_type(search_type, tm_name, classes_for_search):
