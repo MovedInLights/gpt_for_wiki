@@ -5,7 +5,12 @@ from flask import Flask
 from flask import request
 
 from chat_processor import ChatClient
-from linkmark_client.linkmark_workflow import linkmark_request
+from linkmark_client.linkmark_workflow import (
+    SearchType,
+    WordSearch,
+    CompanySearch,
+    NumberSearch,
+)
 from utils import (
     compare_tokens,
     generate_conclusion_message_draft,
@@ -83,7 +88,38 @@ def tm_search():
     if request.method != 'POST':
         return "Method not allowed", 405
     logging.info(f'received request, TM {request}')
-    return linkmark_request(
-        tm_name=request.args.get('tm_name', None),
-        classes_for_search=request.args.getlist('classes_for_search'),
+
+    search_type = request.args.get('search_type', None)
+    tm_name = request.args.get('tm_name', None)
+    classes_for_search = request.args.getlist('classes_for_search')
+
+    search_type = get_search_type(
+        search_type=search_type, tm_name=tm_name, classes_for_search=classes_for_search
     )
+    linkmark_response = search_type.make_request()
+
+    return search_type.handle_response(linkmark_response)
+
+
+def get_search_type(search_type, tm_name, classes_for_search):
+    if search_type == SearchType.WORD:
+        return WordSearch(
+            search_type=search_type,
+            tm_name=tm_name,
+            classes_for_search=classes_for_search,
+        )
+    elif search_type == SearchType.COMPANY:
+        return CompanySearch(
+            search_type=search_type,
+            tm_name=tm_name,
+            classes_for_search=classes_for_search,
+        )
+    elif search_type == SearchType.NUMBER:
+        return NumberSearch(
+            search_type=search_type,
+            tm_name=tm_name,
+            classes_for_search=classes_for_search,
+        )
+    else:
+        logging.error(f'Unknown search type {search_type}')
+        return None
