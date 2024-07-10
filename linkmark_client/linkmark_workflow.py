@@ -41,6 +41,7 @@ class BaseSearchType(ABC):
             },
             headers={'DNT': '1'},
         )
+        logging.info(f'Request response {response}')
         return response
 
     @abstractmethod

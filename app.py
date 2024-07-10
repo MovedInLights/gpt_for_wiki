@@ -96,6 +96,7 @@ def tm_search():
     search_type_class = get_search_type(
         search_type=search_type, tm_name=tm_name, classes_for_search=classes_for_search
     )
+    logging.info(f'Received search type {search_type_class}')
     linkmark_response = search_type_class.make_request()
     logging.info(
         f'Search type is {search_type}, '
