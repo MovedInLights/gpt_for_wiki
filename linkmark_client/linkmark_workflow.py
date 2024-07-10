@@ -24,16 +24,8 @@ class BaseSearchType(ABC):
             f'Initialized BaseSearchType with search_type={self.search_type}, '
             f'tm_name={self.tm_name}, classes_for_search={self.classes_for_search}'
         )
-
-    def make_request(self):
-        logging.info(
-            f'Requesting name {self.tm_name} '
-            f'for {self.classes_for_search} '
-            f'in {self.search_type}'
-        )
-        response = requests.post(
-            LINKMARK_URL,
-            data={
+        self.request = (
+            {
                 'search': self.tm_name,
                 'search_2': None,
                 'vena-class': 'Выбрать',
@@ -43,6 +35,18 @@ class BaseSearchType(ABC):
                 'vena_limit_heading': '12',
                 'search_type': self.search_type,
             },
+        )
+
+    def make_request(self):
+        logging.info(
+            f'Requesting name {self.tm_name} '
+            f'for {self.classes_for_search} '
+            f'in {self.search_type}'
+            f'with request {self.request}'
+        )
+        response = requests.post(
+            LINKMARK_URL,
+            data=self.request,
             headers={'DNT': '1'},
         )
         logging.info(f'Request response {response}')
@@ -55,7 +59,7 @@ class BaseSearchType(ABC):
 
 class WordSearch(BaseSearchType):
     def make_request(self):
-        ...
+        return super().make_request()
 
     def handle_response(self, response):
         parsed_html = BeautifulSoup(response.text, 'html.parser')
