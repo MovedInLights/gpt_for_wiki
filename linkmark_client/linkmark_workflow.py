@@ -22,6 +22,11 @@ class BaseSearchType(ABC):
         self.classes_for_search = classes_for_search
 
     def make_request(self):
+        logging.info(
+            f'Requesting name {self.tm_name} '
+            f'for {self.classes_for_search} '
+            f'in {self.search_type}'
+        )
         response = requests.post(
             LINKMARK_URL,
             data={
