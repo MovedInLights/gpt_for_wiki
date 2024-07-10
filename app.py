@@ -108,6 +108,7 @@ def tm_search():
 
 
 def get_search_type(search_type, tm_name, classes_for_search):
+    logging.info(f'Called with: {search_type}, {tm_name}, {classes_for_search}')
     if search_type == SearchType.WORD:
         return WordSearch(
             search_type=search_type,
