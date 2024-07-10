@@ -41,7 +41,7 @@ class BaseSearchType(ABC):
         logging.info(
             f'Requesting name {self.tm_name} '
             f'for {self.classes_for_search} '
-            f'in {self.search_type}'
+            f'in {self.search_type} '
             f'with request {self.request}'
         )
         response = requests.post(
