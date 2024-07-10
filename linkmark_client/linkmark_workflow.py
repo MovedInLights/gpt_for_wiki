@@ -24,18 +24,16 @@ class BaseSearchType(ABC):
             f'Initialized BaseSearchType with search_type={self.search_type}, '
             f'tm_name={self.tm_name}, classes_for_search={self.classes_for_search}'
         )
-        self.request = (
-            {
-                'search': self.tm_name,
-                'search_2': None,
-                'vena-class': 'Выбрать',
-                'search_4': None,
-                'mktu1[]': self.classes_for_search,
-                'vena_limit_subclass': '0',
-                'vena_limit_heading': '12',
-                'search_type': self.search_type,
-            },
-        )
+        self.request = {
+            'search': self.tm_name,
+            'search_2': None,
+            'vena-class': 'Выбрать',
+            'search_4': None,
+            'mktu1[]': self.classes_for_search,
+            'vena_limit_subclass': '0',
+            'vena_limit_heading': '12',
+            'search_type': self.search_type,
+        }
 
     def make_request(self):
         logging.info(
