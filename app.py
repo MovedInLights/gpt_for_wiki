@@ -102,7 +102,7 @@ def tm_search():
         f'Search type is {search_type}, '
         f'tm_name is {tm_name}, '
         f'classes_for_search are {classes_for_search}, '
-        f'linkmark_response is {linkmark_response}'
+        f'linkmark_response is {linkmark_response.text}'
     )
     return search_type_class.handle_response(linkmark_response)
 

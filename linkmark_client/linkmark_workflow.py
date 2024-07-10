@@ -47,7 +47,7 @@ class BaseSearchType(ABC):
             data=self.request,
             headers={'DNT': '1'},
         )
-        logging.info(f'Request response {response}')
+        logging.info(f'Request response {response.text}')
         return response
 
     @abstractmethod
@@ -120,7 +120,7 @@ class NumberSearch(BaseSearchType):
         return super().make_request()
 
     def handle_response(self, response):
-        logging.info(f'We got a response {response}')
+        logging.info(f'We got a response {response.text}')
         return None
 
 
