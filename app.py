@@ -97,7 +97,12 @@ def tm_search():
         search_type=search_type, tm_name=tm_name, classes_for_search=classes_for_search
     )
     linkmark_response = search_type.make_request()
-
+    logging.info(
+        f'Search type is {search_type}, '
+        f'tm_name is {tm_name}, '
+        f'classes_for_search are {classes_for_search}, '
+        f'linkmark_response is {linkmark_response}'
+    )
     return search_type.handle_response(linkmark_response)
 
 
