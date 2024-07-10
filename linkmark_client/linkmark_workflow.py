@@ -121,6 +121,25 @@ class NumberSearch(BaseSearchType):
 
     def handle_response(self, response):
         logging.info(f'We got a response {response.text}')
+        parsed_html = BeautifulSoup(response.text, 'html.parser')
+        result_div = parsed_html.findAll('div', class_='result-div-item-wrapper')
+        logging.info(f'We got {result_div} results')
+        # data_for_chat = [
+        #     {
+        #         'status': tm.find('class', class_='tm_status_strelka status_2'),
+        #         'formatted_reg_date': tm.get('formatted_reg_date', ''),
+        #         'link': tm.get('link', ''),
+        #         'doc_num': tm.get('doc_num', ''),
+        #         'src_image_link': tm.get('src_image_link', ''),
+        #         'words': tm.get('words', ''),
+        #         'formatted_priority_date': tm.get('formatted_priority_date', ''),
+        #         'owner': tm.get('owner', ''),
+        #         'code': tm.get('code', ''),
+        #         'id': tm.get('id', ''),
+        #     }
+        #     for tm in result_div
+        # ]
+
         return None
 
 
