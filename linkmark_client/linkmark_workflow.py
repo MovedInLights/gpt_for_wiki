@@ -20,6 +20,10 @@ class BaseSearchType(ABC):
         self.search_type = search_type
         self.tm_name = tm_name
         self.classes_for_search = classes_for_search
+        logging.info(
+            f'Initialized BaseSearchType with search_type={self.search_type}, '
+            f'tm_name={self.tm_name}, classes_for_search={self.classes_for_search}'
+        )
 
     def make_request(self):
         logging.info(
