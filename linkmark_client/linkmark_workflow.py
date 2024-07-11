@@ -162,7 +162,7 @@ class NumberSearch(BaseSearchType):
 
             trademarks.append(trademark)
 
-        logging.info(f'Finished processing {len(trademarks)} trademark(s)')
+        logging.info(f'Finished processing {len(trademarks)} trademark(s)!')
         logging.info(f'Trademarks: {trademarks}')
 
         return trademarks
