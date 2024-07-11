@@ -120,25 +120,41 @@ class NumberSearch(BaseSearchType):
         return super().make_request()
 
     def handle_response(self, response):
-        logging.info(f'We got a response {response.text}')
         parsed_html = BeautifulSoup(response.text, 'html.parser')
         result_div = parsed_html.findAll('div', class_='result-div-item-wrapper')
         logging.info(f'We got {result_div} results')
-        # data_for_chat = [
-        #     {
-        #         'status': tm.find('class', class_='tm_status_strelka status_2'),
-        #         'formatted_reg_date': tm.get('formatted_reg_date', ''),
-        #         'link': tm.get('link', ''),
-        #         'doc_num': tm.get('doc_num', ''),
-        #         'src_image_link': tm.get('src_image_link', ''),
-        #         'words': tm.get('words', ''),
-        #         'formatted_priority_date': tm.get('formatted_priority_date', ''),
-        #         'owner': tm.get('owner', ''),
-        #         'code': tm.get('code', ''),
-        #         'id': tm.get('id', ''),
-        #     }
-        #     for tm in result_div
-        # ]
+        trademarks = []
+
+        for tm in result_div:
+            status_div = tm.find(
+                'div', class_='result-div-item-status tm_status status_2'
+            )
+            status = status_div.find('div').text.strip()
+            link = tm.find('div', class_='result-div-item-image').find('img')['src']
+
+            table = tm.find('div', class_='result-div-item-v2').find('table')
+            rows = table.find_all('tr')
+            doc_num = rows[0].find('td').text.strip()
+            formatted_priority_date = rows[1].find('td').text.strip()
+            formatted_reg_date = rows[2].find('td').text.strip()
+
+            code_table = rows[3].find('td').text.strip()
+
+            owner_table = rows[4].find('td').text.strip()
+
+            trademark = {
+                'status': status,
+                'link': link,
+                'doc_num': doc_num,
+                'formatted_priority_date': formatted_priority_date,
+                'formatted_reg_date': formatted_reg_date,
+                'code_table': code_table,
+                'owner_table': owner_table,
+            }
+
+            trademarks.append(trademark)
+
+        logging.info(f'Finished processing {trademarks}')
 
         return None
 
