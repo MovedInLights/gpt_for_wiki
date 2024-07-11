@@ -165,7 +165,11 @@ class NumberSearch(BaseSearchType):
         logging.info(f'Finished processing {len(trademarks)} trademark(s)!')
         logging.info(f'Trademarks: {trademarks}')
 
-        return trademarks
+        context = {
+            'tm_name': self.tm_name,
+            'results': trademarks,
+        }
+        return context
 
 
 class CompanySearch(BaseSearchType):
