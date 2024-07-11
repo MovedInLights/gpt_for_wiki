@@ -122,25 +122,33 @@ class NumberSearch(BaseSearchType):
     def handle_response(self, response):
         parsed_html = BeautifulSoup(response.text, 'html.parser')
         result_div = parsed_html.findAll('div', class_='result-div-item-wrapper')
-        logging.info(f'We got {result_div} results')
+        logging.info(f'We got {len(result_div)} result(s)')
+
         trademarks = []
 
         for tm in result_div:
             status_div = tm.find(
                 'div', class_='result-div-item-status tm_status status_2'
             )
-            status = status_div.find('div').text.strip()
+            status = status_div.find('div').text.strip() if status_div else ''
+
             link = tm.find('div', class_='result-div-item-image').find('img')['src']
 
             table = tm.find('div', class_='result-div-item-v2').find('table')
             rows = table.find_all('tr')
-            doc_num = rows[0].find('td').text.strip()
-            formatted_priority_date = rows[1].find('td').text.strip()
-            formatted_reg_date = rows[2].find('td').text.strip()
 
-            code_table = rows[3].find('td').text.strip()
+            logging.info(f'Table HTML: {table}')
+            logging.info(f'Number of rows found: {len(rows)}')
 
-            owner_table = rows[4].find('td').text.strip()
+            doc_num = rows[0].find('td').text.strip() if len(rows) > 0 else ''
+            formatted_priority_date = (
+                rows[1].find('td').text.strip() if len(rows) > 1 else ''
+            )
+            formatted_reg_date = (
+                rows[2].find('td').text.strip() if len(rows) > 2 else ''
+            )
+            code_table = rows[3].find('td').text.strip() if len(rows) > 3 else ''
+            owner_table = rows[4].find('td').text.strip() if len(rows) > 4 else ''
 
             trademark = {
                 'status': status,
@@ -154,9 +162,10 @@ class NumberSearch(BaseSearchType):
 
             trademarks.append(trademark)
 
-        logging.info(f'Finished processing {trademarks}')
+        logging.info(f'Finished processing {len(trademarks)} trademark(s)')
+        logging.info(f'Trademarks: {trademarks}')
 
-        return None
+        return trademarks
 
 
 class CompanySearch(BaseSearchType):
