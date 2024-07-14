@@ -190,13 +190,13 @@ def get_tm_picture(tm_number):
     # https://fips.ru/ofpstorage/Doc/TM/RUNWTM/000/000/089/084/700/ТЗ-890847-00001/00000001.jpg
     # https://fips.ru/ofpstorage/Doc/TM/RUNWTM/000/000/084/329/700/ТЗ-843297-00001/00000001.jpg
 
-    tm_number = tm_number.zfill(7)
+    tm_number_with_zeros = tm_number.zfill(7)
 
     url = (
         f'https://fips.ru/ofpstorage/Doc/TM/RUNWTM/000/000/'
-        f'{tm_number[:3]}/'
-        f'{tm_number[3:6]}/'
-        f'{tm_number[6]}00/'
+        f'{tm_number_with_zeros[:3]}/'
+        f'{tm_number_with_zeros[3:6]}/'
+        f'{tm_number_with_zeros[6]}00/'
         f'ТЗ-{tm_number}-00001/00000001.jpg'
     )
     return url
