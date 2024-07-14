@@ -149,12 +149,13 @@ class NumberSearch(BaseSearchType):
                 rows[2].find('td').text.strip() if len(rows) > 2 else ''
             )
             code_table = rows[3].find('td').text.strip() if len(rows) > 3 else ''
-            icgs_div = code_table.split(', ')
-            icgs = {'code': icgs_div}
+            icgs_divs = code_table.split(', ')
+            icgs = [{'code': icgs_div} for icgs_div in icgs_divs]
             owner_name_address = (
                 rows[4].find('td').text.strip() if len(rows) > 4 else ''
             )
             owner = {'name': owner_name_address}
+            src_image_link = get_tm_picture(doc_num)
 
             trademark = {
                 'status': status,
@@ -164,6 +165,7 @@ class NumberSearch(BaseSearchType):
                 'formatted_reg_date': formatted_reg_date,
                 'icgs': icgs,
                 'owner': owner,
+                'src_image_link': src_image_link,
             }
 
             trademarks.append(trademark)
@@ -180,6 +182,24 @@ class NumberSearch(BaseSearchType):
 
 class CompanySearch(BaseSearchType):
     pass
+
+
+def get_tm_picture(tm_number):
+    # https://fips.ru/ofpstorage/Doc/TM/RUNWTM/000/000/101/988/200/ТЗ-1019882-00001/00000001.jpg
+    # https://fips.ru/ofpstorage/Doc/TM/RUNWTM/000/000/101/988/200/ТЗ-1019882-00001/00000001.jpg
+    # https://fips.ru/ofpstorage/Doc/TM/RUNWTM/000/000/089/084/700/ТЗ-890847-00001/00000001.jpg
+    # https://fips.ru/ofpstorage/Doc/TM/RUNWTM/000/000/084/329/700/ТЗ-843297-00001/00000001.jpg
+
+    tm_number = tm_number.zfill(7)
+
+    url = (
+        f'https://fips.ru/ofpstorage/Doc/TM/RUNWTM/000/000/'
+        f'{tm_number[:3]}/'
+        f'{tm_number[3:6]}/'
+        f'{tm_number[6]}00/'
+        f'ТЗ-{tm_number}-00001/00000001.jpg'
+    )
+    return url
 
 
 #
