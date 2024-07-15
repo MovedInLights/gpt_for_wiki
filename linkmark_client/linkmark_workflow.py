@@ -157,7 +157,10 @@ class NumberSearch(BaseSearchType):
                 rows[4].find('td').text.strip() if len(rows) > 4 else ''
             )
             owner = {'name': owner_name_address}
-            src_image_link = get_tm_picture(doc_num)
+            if doc_num == 10:
+                src_image_link = get_tm_app_picture(doc_num)
+            else:
+                src_image_link = get_tm_picture(doc_num)
 
             trademark = {
                 'status': status,
@@ -202,6 +205,20 @@ def get_tm_picture(tm_number):
         f'ТЗ-{tm_number}-00001/00000001.jpg'
     )
     return url
+
+
+def get_tm_app_picture(tm_number):
+    return (
+        f'https://fips.ru/Image/RUTMAP_Images/'
+        f'new{tm_number[:4]}/'
+        f'{tm_number[4]}00000/'
+        f'{tm_number[4]}'
+        f'{tm_number[5]}0000/'
+        f'{tm_number[4]}'
+        f'{tm_number[5]}'
+        f'{tm_number[6]}000/'
+        f'{tm_number}.jpg'
+    )
 
 
 #
