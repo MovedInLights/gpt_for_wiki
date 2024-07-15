@@ -130,21 +130,23 @@ class NumberSearch(BaseSearchType):
             status_div = tm.find(
                 'div', class_='result-div-item-status tm_status status_2'
             )
+            if not status_div:
+                status_div = tm.find(
+                    'div', class_='result-div-item-status tm_status status_4'
+                )
             status = status_div.find('div').text.strip() if status_div else ''
 
             link_div = tm.find('div', class_='result-div-item-action')
             link = link_div.find('a')['href'].strip() if link_div else ''
-
             table = tm.find('div', class_='result-div-item-v2').find('table')
             rows = table.find_all('tr')
-
             logging.info(f'Table HTML: {table}')
             logging.info(f'Number of rows found: {len(rows)}')
-
             doc_num = rows[0].find('td').text.strip() if len(rows) > 0 else ''
             formatted_priority_date = (
                 rows[1].find('td').text.strip() if len(rows) > 1 else ''
             )
+
             formatted_reg_date = (
                 rows[2].find('td').text.strip() if len(rows) > 2 else ''
             )
