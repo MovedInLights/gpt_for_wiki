@@ -157,7 +157,7 @@ class NumberSearch(BaseSearchType):
                 rows[4].find('td').text.strip() if len(rows) > 4 else ''
             )
             owner = {'name': owner_name_address}
-            if doc_num == 10:
+            if len(doc_num) == 10:
                 src_image_link = get_tm_app_picture(doc_num)
             else:
                 src_image_link = get_tm_picture(doc_num)
