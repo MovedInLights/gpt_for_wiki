@@ -149,14 +149,12 @@ class NumberSearch(BaseSearchType):
 
             if len(doc_num) == 10:
                 src_image_link = get_tm_app_picture(doc_num)
-                formatted_reg_date = (
-                    rows[1].find('td').text.strip() if len(rows) > 2 else ''
-                )
+                formatted_reg_date = ''
                 code_table = rows[2].find('td').text.strip() if len(rows) > 3 else ''
                 icgs_divs = code_table.split(', ')
                 icgs = [{'code': icgs_div} for icgs_div in icgs_divs]
                 owner_name_address = (
-                    rows[3].find('td').text.strip() if len(rows) > 4 else ''
+                    rows[3].find('td').text.strip() if len(rows) >= 4 else ''
                 )
             else:
                 src_image_link = get_tm_picture(doc_num)
