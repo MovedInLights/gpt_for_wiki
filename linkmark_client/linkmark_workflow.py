@@ -115,8 +115,7 @@ class WordSearch(BaseSearchType):
 class NumberSearch(BaseSearchType):
     def handle_response(self, response):
         trademarks = []
-        parsed_html = BeautifulSoup(response, 'html.parser')
-        items = parsed_html.select('div.result-div-item-wrapper')
+        items = response.select('div.result-div-item-wrapper')
 
         for item in items:
             table = item.select('div.result-div-item-v2 > table')[0]
