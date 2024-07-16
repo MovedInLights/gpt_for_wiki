@@ -154,13 +154,13 @@ class NumberSearch(BaseSearchType):
             try:
                 result['src_image_link'] = (
                     get_tm_app_picture(result['tm_app_num'])
-                    if result['tm_app_num'] == 10
+                    if len(result['tm_app_num']) == 10
                     else get_tm_picture(result['tm_app_num'])
                 )
             except KeyError:
                 result['src_image_link'] = (
                     get_tm_app_picture(result['doc_num'])
-                    if result['doc_num'] == 10
+                    if len(result['doc_num']) == 10
                     else get_tm_picture(result['doc_num'])
                 )
 
