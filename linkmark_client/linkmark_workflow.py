@@ -207,7 +207,7 @@ def get_tm_app_picture(tm_number):
 key_map = {
     'Свидетельство': 'doc_num',
     'Приоритет': 'formatted_priority_date',
-    'Дата подачи': 'formatted_reg_date',
+    'Дата подачи': 'formatted_priority_date',
     'Дата регистрации': 'formatted_reg_date',
     'МКТУ': 'icgs',
     'Заявленные классы': 'icgs',
