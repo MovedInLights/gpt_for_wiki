@@ -120,14 +120,7 @@ class NumberSearch(BaseSearchType):
 
         for item in items:
             table = item.select('div.result-div-item-v2 > table')[0]
-            try:
-                status = item.select(
-                    'div.result-div-item-status.tm_status.status_2 > div'
-                )[0].text
-            except IndexError:
-                status = item.select(
-                    'div.result-div-item-status.tm_status.status_4 > div'
-                )[0].text
+            status = find_the_correct_status_div(item)
 
             link = item.select("div.result-div-item-action > a")[0].attrs['href']
 
@@ -202,6 +195,19 @@ def get_tm_app_picture(tm_number):
         f'{tm_number[6]}000/'
         f'{tm_number}.jpg'
     )
+
+
+status_classes = ['status_1', 'status_2', 'status_3', 'status_4']
+
+
+def find_the_correct_status_div(item):
+    for status_class in status_classes:
+        try:
+            item.select(f'div.result-div-item-status.tm_status.{status_class} > div')[
+                0
+            ].text
+        except IndexError:
+            return ''
 
 
 key_map = {
