@@ -15,6 +15,7 @@ from utils import (
     compare_tokens,
     generate_conclusion_message_draft,
     generate_compare_message_draft,
+    generate_description_message_draft,
 )
 
 app = Flask(__name__)
@@ -105,6 +106,31 @@ def tm_search():
         f'linkmark_response is {linkmark_response.text}'
     )
     return search_type_class.handle_response(linkmark_response)
+
+
+@app.route('/gpt_description')
+def gpt_description():
+    is_token_correct = compare_tokens(request.headers.get("Authorization"))
+    if not is_token_correct:
+        return "Invalid token", 401
+
+    logo_bytes = request.args.get('logo', None)
+    tm_type = request.args.get('tm_type', None)
+
+    chat_client = ChatClient()
+    messages = chat_client.compile_messages(
+        messages_draft=generate_description_message_draft(
+            logo_bytes=logo_bytes,
+            tm_type=tm_type,
+        )
+    )
+    logging.info(f'Received messages for GPT {messages}')
+    chat_response = chat_client.chat_with_gpt(
+        model="gpt-4o",
+        temperature=0,
+        messages=messages,
+    )
+    return {"result": chat_response}
 
 
 def get_search_type(search_type, tm_name, classes_for_search):
