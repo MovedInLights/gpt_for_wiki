@@ -11,6 +11,8 @@ from gpt_prompts.prompts import (
     RUPTO_TOOLKIT_TEXT,
     COMPARE_PROMPT,
     COMPARE_REQUEST,
+    DESCRIPTION_PROMPT,
+    DESCRIPTION_REQUEST,
 )
 
 
@@ -85,6 +87,26 @@ def generate_compare_message_draft(
             'body': COMPARE_REQUEST.format(
                 clients_tm_app_name=clients_tm_app_name,
                 registered_tm=registered_tm,
+            ),
+        },
+    ]
+
+
+def generate_description_message_draft(
+    logo_bytes: str, tm_type: str
+) -> list[Dict[str, Any]]:
+    return [
+        {
+            'role': Role.SYSTEM,
+            'type': 'text',
+            'body': DESCRIPTION_PROMPT,
+        },
+        {
+            'role': Role.USER,
+            'type': 'text',
+            'body': DESCRIPTION_REQUEST.format(
+                tm_image=logo_bytes,
+                tm_type=tm_type,
             ),
         },
     ]
