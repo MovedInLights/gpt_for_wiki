@@ -1,7 +1,8 @@
+import base64
 import logging
 
 from dotenv import load_dotenv
-from flask import Flask
+from flask import Flask, jsonify
 from flask import request
 
 from chat_processor import ChatClient
@@ -108,14 +109,25 @@ def tm_search():
     return search_type_class.handle_response(linkmark_response)
 
 
-@app.route('/gpt_description')
+@app.route('/gpt_description', methods=['POST'])
 def gpt_description():
+    logging.info(f'received request, GPT {request}')
+
     is_token_correct = compare_tokens(request.headers.get("Authorization"))
     if not is_token_correct:
-        return "Invalid token", 401
+        return jsonify({"error": "Invalid token"}), 401
 
-    logo_bytes = request.args.get('logo', None)
-    tm_type = request.args.get('tm_type', None)
+    data = request.get_json()
+    if not data:
+        return jsonify({"error": "Invalid data"}), 400
+
+    logo_base64 = data.get('logo_bytes')
+    tm_type = data.get('tm_type')
+
+    if logo_base64:
+        logo_bytes = base64.b64decode(logo_base64)
+    else:
+        logo_bytes = None
 
     chat_client = ChatClient()
     messages = chat_client.compile_messages(

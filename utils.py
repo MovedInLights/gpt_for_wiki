@@ -93,7 +93,7 @@ def generate_compare_message_draft(
 
 
 def generate_description_message_draft(
-    logo_bytes: str, tm_type: str
+    logo_bytes: bytes | None, tm_type: str
 ) -> list[Dict[str, Any]]:
     return [
         {
