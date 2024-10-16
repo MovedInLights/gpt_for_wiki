@@ -111,38 +111,51 @@ def tm_search():
 
 @app.route('/gpt_description', methods=['POST'])
 def gpt_description():
-    logging.info(f'received request, GPT {request}')
+    logging.info(f'Received request: {request}')
+    logging.info(f'Request method: {request.method}')
+    logging.info(f'Request headers: {request.headers}')
+    logging.info(f'Request URL: {request.url}')
+    logging.info(f'Request data: {request.get_data()}')
 
     is_token_correct = compare_tokens(request.headers.get("Authorization"))
     if not is_token_correct:
+        logging.warning("Invalid token received.")
         return jsonify({"error": "Invalid token"}), 401
 
     data = request.get_json()
+    logging.info(f'Parsed JSON data: {data}')
     if not data:
+        logging.error("No JSON data found in the request.")
         return jsonify({"error": "Invalid data"}), 400
 
     logo_base64 = data.get('logo_bytes')
     tm_type = data.get('tm_type')
+    logging.info(f'Extracted tm_type: {tm_type}')
 
     if logo_base64:
         logo_bytes = base64.b64decode(logo_base64)
+        logging.info(f'Decoded logo bytes of length: {len(logo_bytes)}')
     else:
         logo_bytes = None
+        logging.info("No logo bytes provided.")
 
     chat_client = ChatClient()
-    messages = chat_client.compile_messages(
-        messages_draft=generate_description_message_draft(
-            logo_bytes=logo_bytes,
-            tm_type=tm_type,
-        )
+    messages_draft = generate_description_message_draft(
+        logo_bytes=logo_bytes,
+        tm_type=tm_type,
     )
-    logging.info(f'Received messages for GPT {messages}')
+    logging.info(f'Message draft: {messages_draft}')
+
+    messages = chat_client.compile_messages(messages_draft=messages_draft)
+    logging.info(f'Compiled messages for GPT: {messages}')
+
     chat_response = chat_client.chat_with_gpt(
         model="gpt-4o",
         temperature=0,
         messages=messages,
     )
-    return {"result": chat_response}
+    logging.info(f'ChatGPT response: {chat_response}')
+    return jsonify({"result": chat_response})
 
 
 def get_search_type(search_type, tm_name, classes_for_search):
