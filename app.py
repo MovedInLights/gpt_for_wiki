@@ -115,6 +115,7 @@ def gpt_description():
     logging.info(f'Request method: {request.method}')
     logging.info(f'Request headers: {request.headers}')
     logging.info(f'Request URL: {request.url}')
+    logging.info(f'Request content type: {request.content_type}')
     logging.info(f'Request data: {request.get_data()}')
 
     is_token_correct = compare_tokens(request.headers.get("Authorization"))
@@ -122,33 +123,45 @@ def gpt_description():
         logging.warning("Invalid token received.")
         return jsonify({"error": "Invalid token"}), 401
 
-    data = request.get_json()
-    logging.info(f'Parsed JSON data: {data}')
-    if not data:
-        logging.error("No JSON data found in the request.")
-        return jsonify({"error": "Invalid data"}), 400
+    if 'multipart/form-data' in request.content_type:
+        tm_type = request.form.get('tm_type')
+        logging.info(f'Parsed tm_type: {tm_type}')
 
-    logo_base64 = data.get('logo_bytes')
-    tm_type = data.get('tm_type')
-    logging.info(f'Extracted tm_type: {tm_type}')
-
-    if logo_base64:
-        logo_bytes = base64.b64decode(logo_base64)
-        logging.info(f'Decoded logo bytes of length: {len(logo_bytes)}')
+        logo_file = request.files.get('image_bytes')
+        if logo_file:
+            logo_bytes = logo_file.read()
+            logging.info(f'Received logo_bytes of length: {len(logo_bytes)}')
+        else:
+            logo_bytes = None
+            logging.info("No logo file provided.")
     else:
-        logo_bytes = None
-        logging.info("No logo bytes provided.")
+        data = request.get_json()
+        logging.info(f'Parsed JSON data: {data}')
+        if not data:
+            logging.error("No data found in the request.")
+            return jsonify({"error": "Invalid data"}), 400
+
+        tm_type = data.get('tm_type')
+        logo_base64 = data.get('logo_bytes')
+        if logo_base64:
+            logo_bytes = base64.b64decode(logo_base64)
+            logging.info(f'Decoded logo bytes of length: {len(logo_bytes)}')
+        else:
+            logo_bytes = None
+            logging.info("No logo bytes provided.")
+
+    if not tm_type:
+        logging.error("tm_type not provided.")
+        return jsonify({"error": "tm_type not provided"}), 400
 
     chat_client = ChatClient()
-    messages_draft = generate_description_message_draft(
-        logo_bytes=logo_bytes,
-        tm_type=tm_type,
+    messages = chat_client.compile_messages(
+        messages_draft=generate_description_message_draft(
+            logo_bytes=logo_bytes,
+            tm_type=tm_type,
+        )
     )
-    logging.info(f'Message draft: {messages_draft}')
-
-    messages = chat_client.compile_messages(messages_draft=messages_draft)
     logging.info(f'Compiled messages for GPT: {messages}')
-
     chat_response = chat_client.chat_with_gpt(
         model="gpt-4o",
         temperature=0,
