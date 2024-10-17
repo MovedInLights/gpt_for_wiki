@@ -1,4 +1,3 @@
-import base64
 import logging
 
 from dotenv import load_dotenv
@@ -120,44 +119,14 @@ def gpt_description():
 
     is_token_correct = compare_tokens(request.headers.get("Authorization"))
     if not is_token_correct:
-        logging.warning("Invalid token received.")
-        return jsonify({"error": "Invalid token"}), 401
-
-    if 'multipart/form-data' in request.content_type:
-        tm_type = request.form.get('tm_type')
-        logging.info(f'Parsed tm_type: {tm_type}')
-
-        logo_file = request.files.get('image_bytes')
-        if logo_file:
-            logo_bytes = logo_file.read()
-            logging.info(f'Received logo_bytes of length: {len(logo_bytes)}')
-        else:
-            logo_bytes = None
-            logging.info("No logo file provided.")
-    else:
-        data = request.get_json()
-        logging.info(f'Parsed JSON data: {data}')
-        if not data:
-            logging.error("No data found in the request.")
-            return jsonify({"error": "Invalid data"}), 400
-
-        tm_type = data.get('tm_type')
-        logo_base64 = data.get('logo_bytes')
-        if logo_base64:
-            logo_bytes = base64.b64decode(logo_base64)
-            logging.info(f'Decoded logo bytes of length: {len(logo_bytes)}')
-        else:
-            logo_bytes = None
-            logging.info("No logo bytes provided.")
-
-    if not tm_type:
-        logging.error("tm_type not provided.")
-        return jsonify({"error": "tm_type not provided"}), 400
+        return "Invalid token", 401
+    logo_link = request.args.get('logo_link', None)
+    tm_type = request.args.get('tm_type', None)
 
     chat_client = ChatClient()
     messages = chat_client.compile_messages(
         messages_draft=generate_description_message_draft(
-            logo_bytes=logo_bytes,
+            logo_link=logo_link,
             tm_type=tm_type,
         )
     )

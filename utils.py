@@ -93,7 +93,7 @@ def generate_compare_message_draft(
 
 
 def generate_description_message_draft(
-    logo_bytes: bytes | None, tm_type: str
+    logo_link: str | None, tm_type: str
 ) -> list[Dict[str, Any]]:
     return [
         {
@@ -105,8 +105,12 @@ def generate_description_message_draft(
             'role': Role.USER,
             'type': 'text',
             'body': DESCRIPTION_REQUEST.format(
-                tm_image=logo_bytes,
                 tm_type=tm_type,
             ),
+        },
+        {
+            "role": Role.USER,
+            "type": "image_url",
+            "body": f'{logo_link}',
         },
     ]
