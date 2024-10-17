@@ -12,7 +12,7 @@ COMPARE_REQUEST = (
 )
 
 DESCRIPTION_REQUEST = (
-    "Please describe the TM {tm_image} with TM type {tm_type} with the guide provided"
+    "Please describe the TM image with TM type {tm_type} with the guide provided"
 )
 # fmt: off
 RUPTO_TOOLKIT_TEXT = """1. Общие положения
