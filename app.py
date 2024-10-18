@@ -15,7 +15,6 @@ from utils import (
     compare_tokens,
     generate_conclusion_message_draft,
     generate_compare_message_draft,
-    generate_description_message_draft,
 )
 
 app = Flask(__name__)
@@ -122,12 +121,15 @@ def gpt_description():
         return "Invalid token", 401
     logo_link = request.args.get('logo_link', None)
     tm_type = request.args.get('tm_type', None)
+    logging.info(f'Received request, TM {tm_type}, logo_link is {logo_link}')
+
+    clients_tm_app_name = 'Techno'
 
     chat_client = ChatClient()
     messages = chat_client.compile_messages(
-        messages_draft=generate_description_message_draft(
-            logo_link=logo_link,
-            tm_type=tm_type,
+        messages_draft=generate_conclusion_message_draft(
+            clients_tm_app_name=clients_tm_app_name,
+            image_link_to_compare=logo_link,
         )
     )
     logging.info(f'Compiled messages for GPT: {messages}')
