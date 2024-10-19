@@ -217,4 +217,6 @@ COMPARE_PROMPT = f"""
 DESCRIPTION_PROMPT = f"""
      You need to describe what is on the picture. The description should be structured the way it described in toolkit according to the TM type:
     "{DESCRIPTION_TOOLKIT_TEXT}"
+    1. You should understand what TM type you deal with,
+    2. You should pick the correct option from toolkit and describe image.
 """
