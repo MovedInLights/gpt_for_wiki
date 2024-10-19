@@ -1,7 +1,7 @@
 import logging
 
 from dotenv import load_dotenv
-from flask import Flask, jsonify
+from flask import Flask
 from flask import request
 
 from chat_processor import ChatClient
@@ -15,6 +15,7 @@ from utils import (
     compare_tokens,
     generate_conclusion_message_draft,
     generate_compare_message_draft,
+    generate_description_message_draft,
 )
 
 app = Flask(__name__)
@@ -123,13 +124,11 @@ def gpt_description():
     tm_type = request.args.get('tm_type', None)
     logging.info(f'Received request, TM {tm_type}, logo_link is {logo_link}')
 
-    clients_tm_app_name = 'Techno'
-
     chat_client = ChatClient()
     messages = chat_client.compile_messages(
-        messages_draft=generate_conclusion_message_draft(
-            clients_tm_app_name=clients_tm_app_name,
-            image_link_to_compare=logo_link,
+        messages_draft=generate_description_message_draft(
+            tm_type=tm_type,
+            logo_link=logo_link,
         )
     )
     logging.info(f'Compiled messages for GPT: {messages}')
@@ -139,7 +138,7 @@ def gpt_description():
         messages=messages,
     )
     logging.info(f'ChatGPT response: {chat_response}')
-    return jsonify({"result": chat_response})
+    return {"result": chat_response}
 
 
 def get_search_type(search_type, tm_name, classes_for_search):
