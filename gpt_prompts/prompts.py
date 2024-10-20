@@ -219,4 +219,5 @@ DESCRIPTION_PROMPT = f"""
     "{DESCRIPTION_TOOLKIT_TEXT}"
     1. You should understand what TM type you deal with,
     2. You should pick the correct option from toolkit and describe image.
+    3. In final description you dont need to use '.1. На кириллице:' or similar string. They are just for you.
 """
