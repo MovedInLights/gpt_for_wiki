@@ -1,3 +1,4 @@
+import json
 import logging
 
 from dotenv import load_dotenv
@@ -137,8 +138,14 @@ def gpt_description():
         temperature=0,
         messages=messages,
     )
-    logging.info(f'ChatGPT response: {chat_response}')
-    return {"result": chat_response}
+    try:
+        chat_response_dict = json.loads(chat_response)
+        result = chat_response_dict.get('result', chat_response)
+    except json.JSONDecodeError:
+        result = chat_response
+
+    logging.info(f'ChatGPT response: {result}')
+    return {"result": result}
 
 
 def get_search_type(search_type, tm_name, classes_for_search):
