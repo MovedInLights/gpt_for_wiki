@@ -15,6 +15,7 @@ pre-commit = "^3.7.0"
 gunicorn = "^22.0.0"
 pillow = "^10.3.0"
 bs4 = "^0.0.2"
+flask-cors = "^5.0.1"
 
 
 [build-system]
