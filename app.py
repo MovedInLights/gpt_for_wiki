@@ -90,6 +90,9 @@ def tm_search():
     if request.method != 'POST':
         return "Method not allowed", 405
     logging.info(f'received request, TM {request}')
+    is_token_correct = compare_tokens(request.headers.get("Authorization"))
+    if not is_token_correct:
+        return "Invalid token", 401
 
     search_type = request.args.get('search_type', None)
     tm_name = request.args.get('tm_name', None)
