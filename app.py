@@ -3,6 +3,7 @@ import logging
 
 from dotenv import load_dotenv
 from flask import Flask
+from flask_cors import CORS
 from flask import request
 
 from chat_processor import ChatClient
@@ -21,6 +22,7 @@ from utils import (
 
 app = Flask(__name__)
 app.config["JSON_AS_ASCII"] = False
+CORS(app)
 
 load_dotenv()
 logging.basicConfig(level=logging.DEBUG)
