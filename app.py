@@ -3,7 +3,7 @@ import logging
 
 from dotenv import load_dotenv
 from flask import Flask
-from flask_cors import CORS
+from flask_cors import CORS, cross_origin
 from flask import request
 
 from chat_processor import ChatClient
@@ -22,7 +22,15 @@ from utils import (
 
 app = Flask(__name__)
 app.config["JSON_AS_ASCII"] = False
-CORS(app)
+CORS(
+    app,
+    resources={
+        r"/tm_search": {
+            "origins": "*",
+            "allow_headers": ["Authorization", "Content-Type"],
+        }
+    },
+)
 
 load_dotenv()
 logging.basicConfig(level=logging.DEBUG)
@@ -88,6 +96,7 @@ def gpt_conclusion():
 
 
 @app.route("/tm_search", methods=['POST'])
+@cross_origin()
 def tm_search():
     if request.method != 'POST':
         return "Method not allowed", 405
